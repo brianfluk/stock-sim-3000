@@ -1,15 +1,34 @@
-import React from 'react'
-import { FaCode } from "react-icons/fa";
+import React, { useEffect, useState } from 'react'
+import { AiOutlineStock } from "react-icons/ai";
 
-function LandingPage() {
+import { connect } from 'react-redux';
+import { useDispatch } from "react-redux";
+import { getCryptoList } from "../../../_actions/crypto_actions";
+import CryptoList from './CryptoList';
+
+
+function LandingPage (props) {
+    const dispatch = useDispatch();
+    let rendered = false;
+    useEffect(function() {
+        dispatch(getCryptoList()).then(response => {
+            rendered = true
+        })
+    }, [rendered])
+    
     return (
         <>
         <div className="app">
-            <FaCode style={{ fontSize: '4rem' }} /><br />
-            <span style={{ fontSize: '2rem' }}>Let's Start Coding!</span>
+            <AiOutlineStock style={{ fontSize: '4rem' }} /><br />
+            <CryptoList />
+            <span style={{ fontSize: '2rem' }}>Stocks Data</span>
         </div>
         </>
     )
 }
 
-export default LandingPage
+const mapStateToProps = state => ({
+    cryptoList: state.crypto && state.crypto.cryptoList
+});
+
+export default connect(mapStateToProps)(LandingPage)
