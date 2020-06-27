@@ -1,0 +1,41 @@
+.list-container {
+    display: flex;
+    flex-direction: column;
+    font-size: '14px'; 
+    width: 450px;
+}
+.list-nav-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    button {
+        flex: 1 1 auto; // flex-shrink to prevent overflow
+        flex-shrink: 1;
+    }
+    .page-num-container {
+        display: flex;
+        overflow-x: hidden;
+        // flex: 0 0 auto;
+    }
+}
+.list-nav-secondary {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    .go-to-page-input {
+        width: 80px;
+        margin: 0px 10px;
+        &::placeholder {
+            text-align: right;
+        }
+    }
+    p {
+        margin: 0;
+        align-self: center;
+    }
+}
+.ant-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

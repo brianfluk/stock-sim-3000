@@ -1,14 +1,16 @@
 import React from 'react'
-import Icon from '@ant-design/icons';
+import Icon, { GithubOutlined } from '@ant-design/icons';
+
 
 function Footer() {
     return (
         <div style={{
             height: '80px', display: 'flex',
             flexDirection: 'column', alignItems: 'center',
-            justifyContent: 'center', fontSize:'1rem'
+            justifyContent: 'center', fontSize:'1rem',
+            margin: '0px'
         }}>
-           <p> By Brian <Icon type="github-outline" /></p>
+           <p> By Brian <GithubOutlined /></p>
         </div>
     )
 }

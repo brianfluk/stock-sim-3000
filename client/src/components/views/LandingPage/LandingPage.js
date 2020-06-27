@@ -20,8 +20,8 @@ function LandingPage (props) {
         <>
         <div className="app">
             <AiOutlineStock style={{ fontSize: '4rem' }} /><br />
-            <CryptoList />
             <span style={{ fontSize: '2rem' }}>Stocks Data</span>
+            <CryptoList />
         </div>
         </>
     )
