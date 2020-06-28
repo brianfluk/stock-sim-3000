@@ -11,12 +11,9 @@ function CryptoList(props) {
     const [currPageSlice, setCurrPageSlice] = useState([])
     const [displayPageNums, setDisplayPageNums] = useState([1])
     const [listHasBeenSet, setListHasBeenSet] = useState(false)
-    // const [filteredList, setFilteredList] = useState((props.cryptoList && props.cryptoList.data && props.cryptoList.data.data) ? props.cryptoList.data.data : [])
-    
-    let totalLen = (props.cryptoList && props.cryptoList.data && props.cryptoList.data.data) ? props.cryptoList.data.data.length: 0// needs recalculating when change pagesize
-    // let totalLen = filteredList.length;
-    let maxPage = Math.floor(totalLen / pageSize)// needs recalculating when change pagesize
-    
+    const [filteredList, setFilteredList] = useState((props.cryptoList && props.cryptoList.data && props.cryptoList.data.data) ? props.cryptoList.data.data : [])
+    const [maxPage, setMaxPage] = useState(filteredList ? Math.floor(filteredList.length / pageSize): 0);
+
     function prevPage() {
         (pageNum > 0) && setPageNum(pageNum - 1)
     }
@@ -26,27 +23,78 @@ function CryptoList(props) {
     function calcDisplayPageNums() {
         const newDisplayPageNums = Array.from(new Array(7), (x, i) => {
             return i + Math.max(0, pageNum-3) + 1 // UI paging starts at 0
-        }).filter(num => num <= maxPage);
+        }).filter(num => num <= maxPage + 1);
         setDisplayPageNums(newDisplayPageNums)
     }
     
-    async function updateCurrPageSlice() {
+    async function updateCurrPageSlice(searchVal='') {
+        if (!searchVal) {
+            clearSearch();
+            return;
+        }
         // calc currPage
         const listExists = Boolean(props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data);
-        // const listExists = Boolean(filteredList)
+        if (listExists && !listHasBeenSet) { // wait until redux store has been updated
+            setFilteredList(props.cryptoList.data.data)
+            setMaxPage(Math.floor(props.cryptoList.data.data.length / pageSize))
+            setListHasBeenSet(true)
+        }
+
+        // for synchronization issues
+        let newFilteredList = await listExists ? props.cryptoList.data.data.filter(entry => entry.symbol.toLowerCase().includes(searchVal) || entry.name.includes(searchVal)) : []
+        await setFilteredList(newFilteredList);
+        // if (searchVal) {
+            // TODO: optimize - if new search contains old search, dont reset to cryptolist
+            // let newFilteredList = props.cryptoList.data.data
+            // await setFilteredList(newFilteredList.filter(entry => entry.symbol.toLowerCase().includes(searchVal) || entry.name.includes(searchVal)))
+        // }
+        const newCurrPageSlice = await listExists ? 
+            newFilteredList.slice(
+                pageNum * pageSize,
+                Math.min((Number(pageNum) + 1)*pageSize, newFilteredList.length)) : 
+            [{ "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" }]
+        // const newCurrPageSlice = await listExists ? 
+        //     filteredList.slice(
+        //         pageNum * pageSize,
+        //         Math.min((Number(pageNum) + 1)*pageSize, filteredList.length)) : 
+        //     [{ "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" }]
+        setCurrPageSlice(newCurrPageSlice)
+
+        if (searchVal) {
+            console.log('searchval:',searchVal)
+            await setMaxPage(Math.floor(newFilteredList.length / pageSize))
+            // await setMaxPage(Math.floor(filteredList.length / pageSize))
+        } else {
+            console.log('empty search')
+        }
+        console.log('filtered list',filteredList.length)
+        calcDisplayPageNums()        
+    }
+
+    function searchCoin(value, event) {
+        console.log('searched for coin', value, ' / ', event.nativeEvent)
+        setPageNum(0); // page 0 of filtered list
+        // reset list from prev searches -- can optimize by checking if curr search .includes (prev search)
+        updateCurrPageSlice(value.toLowerCase())
+        // console.log('filtered list',filteredList.length)
+    }
+    async function clearSearch() {
+        const listExists = Boolean(props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data);
+        if (listExists && !listHasBeenSet) { // wait until redux store has been updated
+            setFilteredList(props.cryptoList.data.data)
+            setMaxPage(Math.floor(props.cryptoList.data.data.length / pageSize))
+            setListHasBeenSet(true)
+        }
         const newCurrPageSlice = await listExists ? 
             props.cryptoList.data.data.slice(
                 pageNum * pageSize,
                 Math.min((Number(pageNum) + 1)*pageSize, props.cryptoList.data.data.length)) : 
             [{ "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" }]
         setCurrPageSlice(newCurrPageSlice)
-        setListHasBeenSet(true)
-        calcDisplayPageNums()        
-    }
-
-    function searchCoin(value, event) {
-        console.log('searched for coin', value, ' / ', event.nativeEvent)
-        // filter list 
+        // if (listExists) {
+            // setMaxPage(Math.floor(props.cryptoList.data.data.length / pageSize))
+        // }
+        calcDisplayPageNums()  
     }
 
     function goToPage(event) {
@@ -62,12 +110,13 @@ function CryptoList(props) {
 
     useEffect(() => {
         updateCurrPageSlice()
-    }, [listHasBeenSet, pageNum, pageSize, props.cryptoList])
+    }, [listHasBeenSet, pageNum, pageSize, props.cryptoList, maxPage])
     
 
     return (
         <div className='list-container'>
-            {props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data &&
+            {filteredList &&
+            // {props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data &&
                 // JSON.stringify(currPage);
                 currPageSlice.map((val, key) => {
                     return <Button key={key}><span style={{fontWeight:'bold'}}>{val.name}</span> &nbsp;| {val.symbol}</Button>
@@ -88,7 +137,7 @@ function CryptoList(props) {
             </div>
             <div className='list-nav-secondary'>
                 <p>Go&nbsp;to:</p>
-                <Input className="go-to-page-input" onKeyUp={goToPage} placeholder={` /${maxPage}`}/>
+                <Input className="go-to-page-input" onKeyUp={goToPage} placeholder={` /${maxPage + 1}`}/>
                 <Input.Search onSearch={searchCoin} placeholder="Search for crypto" enterButton={true}/>
             </div>
             {/* <Pagination className="ant-pagination" current={pageNum} pageSize={pageSize} showSizeChanger={false} total={1000}/> */}
