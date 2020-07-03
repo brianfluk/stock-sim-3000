@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './cryptoList.scss'
-import { List, Button, Pagination, Input } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { Button, Input } from 'antd';
+import { LeftOutlined, RightOutlined, PlusOutlined } from '@ant-design/icons';
 
+/** Put on hold because bugs */
 function CryptoList(props) {
     const [pageNum, setPageNum] = useState(0);
     const [pageSize, setPageSize] = useState(10);
@@ -28,10 +29,11 @@ function CryptoList(props) {
     }
     
     async function updateCurrPageSlice(searchVal='') {
-        if (!searchVal) {
-            clearSearch();
-            return;
-        }
+
+        // TODO: investigate (hint: debugger) why this function gets called with no searchVal
+        // after each search WITH a searchVal. I think it's because of useEffect() -- one of those params
+        // change, like pageNum.
+
         // calc currPage
         const listExists = Boolean(props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data);
         if (listExists && !listHasBeenSet) { // wait until redux store has been updated
@@ -66,6 +68,9 @@ function CryptoList(props) {
             // await setMaxPage(Math.floor(filteredList.length / pageSize))
         } else {
             console.log('empty search')
+            if (listExists) {
+                setMaxPage(Math.floor(props.cryptoList.data.data.length / pageSize))
+            }
         }
         console.log('filtered list',filteredList.length)
         calcDisplayPageNums()        
@@ -77,24 +82,6 @@ function CryptoList(props) {
         // reset list from prev searches -- can optimize by checking if curr search .includes (prev search)
         updateCurrPageSlice(value.toLowerCase())
         // console.log('filtered list',filteredList.length)
-    }
-    async function clearSearch() {
-        const listExists = Boolean(props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data);
-        if (listExists && !listHasBeenSet) { // wait until redux store has been updated
-            setFilteredList(props.cryptoList.data.data)
-            setMaxPage(Math.floor(props.cryptoList.data.data.length / pageSize))
-            setListHasBeenSet(true)
-        }
-        const newCurrPageSlice = await listExists ? 
-            props.cryptoList.data.data.slice(
-                pageNum * pageSize,
-                Math.min((Number(pageNum) + 1)*pageSize, props.cryptoList.data.data.length)) : 
-            [{ "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" }]
-        setCurrPageSlice(newCurrPageSlice)
-        // if (listExists) {
-            // setMaxPage(Math.floor(props.cryptoList.data.data.length / pageSize))
-        // }
-        calcDisplayPageNums()  
     }
 
     function goToPage(event) {
@@ -119,7 +106,14 @@ function CryptoList(props) {
             // {props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data &&
                 // JSON.stringify(currPage);
                 currPageSlice.map((val, key) => {
-                    return <Button key={key}><span style={{fontWeight:'bold'}}>{val.name}</span> &nbsp;| {val.symbol}</Button>
+                    return (
+                        <div style={{width:'100%', display: 'flex', justifyContent: 'space-between', marginBottom: '5px'}}>
+                            <Button key={key}>
+                                <span style={{fontWeight:'bold'}}>{val.name}</span> &nbsp;| {val.symbol}
+                            </Button>
+                            <Button type="primary"><PlusOutlined /></Button>
+                        </div>
+                    )
                 })
                 // <List dataSource={currPage}/>
             }

@@ -62,6 +62,12 @@
   padding: 14px 24px !important;
 }
 
+.menu__logo a {
+  color: white;
+  background-color: #3e91f7;
+  padding: 10px;
+}
+
 @media (max-width: 767px) {
   .menu__mobile-button {
     display: inline-block !important;
@@ -71,6 +77,8 @@
   .menu_rigth {
     display: none;
   }
+
+  
 
   .menu__logo a {
     margin-left: -20px;
@@ -84,4 +92,5 @@
   .menu__logo a {
     padding: 10px 20px;
   }
+  
 }

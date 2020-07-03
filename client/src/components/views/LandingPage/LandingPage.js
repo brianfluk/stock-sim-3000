@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineStock } from "react-icons/ai";
 
 import { connect } from 'react-redux';
-import { useDispatch } from "react-redux";
-import { getCryptoList } from "../../../_actions/crypto_actions";
+// import { useDispatch } from "react-redux";
+// import { getCryptoList } from "../../../_actions/crypto_actions";
 import CryptoList from './CryptoList';
 
 
 function LandingPage (props) {
-    const dispatch = useDispatch();
-    let rendered = false;
-    useEffect(function() {
-        dispatch(getCryptoList()).then(response => {
-            rendered = true
-        })
-    }, [rendered])
+    // const dispatch = useDispatch();
+    // let rendered = false;
+    // useEffect(function() {
+    //     dispatch(getCryptoList()).then(response => {
+    //         rendered = true
+    //     })
+    // }, [rendered])
     
     return (
         <>

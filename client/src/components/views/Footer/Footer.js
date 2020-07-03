@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon, { GithubOutlined } from '@ant-design/icons';
+import { GithubOutlined } from '@ant-design/icons';
 
 
 function Footer() {

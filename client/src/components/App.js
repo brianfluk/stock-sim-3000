@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Route, Switch } from "react-router-dom";
 import Auth from "../hoc/auth";
 // pages for this product
@@ -6,24 +6,57 @@ import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
-import Footer from "./views/Footer/Footer"
+import SideNavBar from "./views/NavBar/SideNavBar";
+
+import { useDispatch } from "react-redux";
+import { getCryptoList } from "../_actions/crypto_actions";
+
+import { Layout, Menu } from 'antd';
+import { UploadOutlined, UserOutlined, VideoCameraOutlined, GithubOutlined } from '@ant-design/icons';
+
+const { Header, Content, Footer, Sider } = Layout;
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
 //false  logged in user can't go inside
 
 function App() {
+  // load list of crypto
+  const dispatch = useDispatch();
+  let rendered = false;
+  useEffect(function() {
+      dispatch(getCryptoList()).then(response => {
+          rendered = true
+      })
+  }, [rendered])
+
+  // side nav bar
+  const [collapsed, setCollapsed] = useState(false);
+  function toggleCollapsed() { setCollapsed(!collapsed); }
+
+
   return (
     <Suspense fallback={(<div>Loading...</div>)}>
-      <NavBar />
-      <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
-        <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null)} />
-          <Route exact path="/login" component={Auth(LoginPage, false)} />
-          <Route exact path="/register" component={Auth(RegisterPage, false)} />
-        </Switch>
-      </div>
-      <Footer />
+      <Layout
+        style={{height: '100%'}}
+      >
+        <NavBar />
+        <Layout>
+          <SideNavBar />
+          <Layout style={{ padding: '0 24px 24px' }}>
+            <Content style={{ margin: '24px 16px 0' }}>
+              <div style={{ padding: 24, minHeight: 360 }}>
+                <Switch>
+                  <Route exact path="/" component={Auth(LandingPage, null)} />
+                  <Route exact path="/login" component={Auth(LoginPage, false)} />
+                  <Route exact path="/register" component={Auth(RegisterPage, false)} />
+                </Switch>
+              </div>
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>By Brian <GithubOutlined /></Footer>
+          </Layout>
+        </Layout>
+      </Layout>
     </Suspense>
   );
 }
