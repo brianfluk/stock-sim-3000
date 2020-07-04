@@ -11,9 +11,9 @@ function AboutPage (props) {
         <>
         <div className="app">
             <AiOutlineStock style={{ fontSize: '5rem' }} /><br />
-            <h1 style={{ fontSize: '42px' }}>Why Investment Simulator?</h1>
+            <h1 style={{ fontSize: '42px' }}>Why StockSim3000?</h1>
             <p style={{ fontSize: '18px', whiteSpace: 'pre-wrap', textAlign: 'center' }}>
-                {`Practice and improve your market timing skills and build a portfolio with zero risk.\n`}
+                {`Practice and improve your investment skills and build a portfolio with zero risk.\n`}
             </p>
             <p>
                 <FaBitcoin style={{ fontSize: '4rem', color: '#096dd9' }}/>

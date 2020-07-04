@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { AiOutlineStock } from "react-icons/ai";
 
 import { connect } from 'react-redux';
 
@@ -9,13 +8,14 @@ function PortfolioPage (props) {
         <>
         <div className="app">
             <h1 style={{ fontSize: '42px' }}>Portfolio</h1>
+            <h2>{props.userData && props.userData.email}</h2>
         </div>
         </>
     )
 }
 
 const mapStateToProps = state => ({
-    cryptoList: state.crypto && state.crypto.cryptoList
+    userData: state.user && state.user.userData
 });
 
 export default connect(mapStateToProps)(PortfolioPage)

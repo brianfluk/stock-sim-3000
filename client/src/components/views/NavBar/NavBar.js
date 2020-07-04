@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import axios from 'axios';
 import { USER_SERVER } from './../../Config';
 import './navBar.scss';
+import '../styles.scss';
 
 const { Header } = Layout;
 
@@ -28,11 +29,11 @@ function NavBar(props) {
   if (user.userData && !user.userData.isAuth) { // not logged in
     return (
 
-      <Header style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
+      <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
         <Menu  theme="dark" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             <StockOutlined />
-            <Link to='/'>Investment Simulator</Link>
+            <Link to='/'>StockSim3000</Link>
           </Menu.Item>
           <Menu.Item key='about'>
             <Link to="/about">About</Link>
@@ -53,11 +54,11 @@ function NavBar(props) {
   } else {
     return (
 
-      <Header style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
+      <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
         <Menu className="no-selection" theme="dark" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             <StockOutlined />
-            <Link to='/'>Investment Simulator</Link>
+            <Link to='/'>StockSim3000</Link>
           </Menu.Item>
           <Menu.Item key='about'>
             <Link to="/about">About</Link>

@@ -51,6 +51,8 @@ function RegisterPage(props) {
 
     let dataToSubmit = {
       username: values.username,
+      firstname: values.firstname,
+      lastname: values.lastname,
       email: values.email,
       password: values.password,
     };
@@ -93,6 +95,41 @@ function RegisterPage(props) {
         >
           <Input />
         </Form.Item>
+        <Form.Item
+          name='firstname'
+          label="First name"
+          rules={[
+            {
+              required: true,
+              message: 'First name is required!'
+            },
+            {
+              min: 1,
+              max: 100,
+              message: 'Names are 1-100 characters long'
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name='lastname'
+          label="Last name"
+          rules={[
+            {
+              required: true,
+              message: 'Last name is required!'
+            },
+            {
+              min: 1,
+              max: 100,
+              message: 'Names are 1-100 characters long'
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
         <Form.Item
           name='email'
           label="Email"

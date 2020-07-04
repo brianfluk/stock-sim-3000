@@ -14,10 +14,10 @@ router.get("/auth", auth, (req, res) => {
         isAdmin: req.user.role === 0 ? false : true,
         isAuth: true,
         email: req.user.email,
-        name: req.user.name,
+        username: req.user.username,
+        firstname: req.user.firstname,
         lastname: req.user.lastname,
         role: req.user.role,
-        image: req.user.image,
     });
 });
 

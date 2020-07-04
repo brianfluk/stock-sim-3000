@@ -3,6 +3,7 @@ import React from 'react';
 import { } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
 import './sideNavBar.scss';
+import '../styles.scss'
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 import { Layout, Menu } from 'antd';
@@ -27,8 +28,9 @@ function SideNavBar(props) {
         collapsed={collapsed}
         onCollapse={onCollapse}
         style={{
-          paddingTop: '64px',
+          paddingTop: '60px',
         }}
+        className='no-select'
       >
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
@@ -52,8 +54,9 @@ function SideNavBar(props) {
         collapsed={collapsed}
         onCollapse={onCollapse}
         style={{
-          paddingTop: '64px',
+          paddingTop: '60px',
         }}
+        className='no-select'
       >
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>

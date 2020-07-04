@@ -6,6 +6,7 @@ import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import AboutPage from './views/AboutPage/AboutPage.js';
 import BrowseCryptoPage from './views/Crypto/BrowseCryptoPage.js';
+import CryptoPage from './views/Crypto/CryptoPage.js';
 import BrowseStocksPage from './views/Stocks/BrowseStocksPage.js';
 import PreferencesPage from './views/PreferencesPage/PreferencesPage.js';
 import LeaderboardsPage from './views/LeaderboardsPage/LeaderboardsPage.js';
@@ -62,6 +63,7 @@ function App() {
                   <Route exact path="/browse-stocks" component={Auth(BrowseStocksPage, null)} />
                   <Route exact path="/portfolio" component={Auth(PortfolioPage, true)} />
                   <Route exact path="/leaderboards" component={Auth(LeaderboardsPage, null)} />
+                  <Route path="/crypto/:id" component={Auth(CryptoPage, null)} />
                   <Redirect to={Auth(LandingPage, null)} />
                 </Switch>
               </div>
