@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "backend": "nodemon server/server.js",
     "frontend": "npm run start --prefix client",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
