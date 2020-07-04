@@ -1,9 +1,15 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Auth from "../hoc/auth";
 // pages for this product
 import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
+import AboutPage from './views/AboutPage/AboutPage.js';
+import BrowseCryptoPage from './views/Crypto/BrowseCryptoPage.js';
+import BrowseStocksPage from './views/Stocks/BrowseStocksPage.js';
+import PreferencesPage from './views/PreferencesPage/PreferencesPage.js';
+import LeaderboardsPage from './views/LeaderboardsPage/LeaderboardsPage.js';
+import PortfolioPage from './views/PortfolioPage/PortfolioPage.js';
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import SideNavBar from "./views/NavBar/SideNavBar";
@@ -11,8 +17,8 @@ import SideNavBar from "./views/NavBar/SideNavBar";
 import { useDispatch } from "react-redux";
 import { getCryptoList } from "../_actions/crypto_actions";
 
-import { Layout, Menu } from 'antd';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, GithubOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -50,6 +56,13 @@ function App() {
                   <Route exact path="/" component={Auth(LandingPage, null)} />
                   <Route exact path="/login" component={Auth(LoginPage, false)} />
                   <Route exact path="/register" component={Auth(RegisterPage, false)} />
+                  <Route exact path="/about" component={AboutPage} />
+                  <Route exact path="/preferences" component={Auth(PreferencesPage, true)} />
+                  <Route exact path="/browse-crypto" component={Auth(BrowseCryptoPage, null)} />
+                  <Route exact path="/browse-stocks" component={Auth(BrowseStocksPage, null)} />
+                  <Route exact path="/portfolio" component={Auth(PortfolioPage, true)} />
+                  <Route exact path="/leaderboards" component={Auth(LeaderboardsPage, null)} />
+                  <Redirect to={Auth(LandingPage, null)} />
                 </Switch>
               </div>
             </Content>

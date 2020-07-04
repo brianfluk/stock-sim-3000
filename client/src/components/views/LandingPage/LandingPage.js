@@ -4,7 +4,6 @@ import { AiOutlineStock } from "react-icons/ai";
 import { connect } from 'react-redux';
 // import { useDispatch } from "react-redux";
 // import { getCryptoList } from "../../../_actions/crypto_actions";
-import CryptoList from './CryptoList';
 
 
 function LandingPage (props) {
@@ -21,7 +20,6 @@ function LandingPage (props) {
         <div className="app">
             <AiOutlineStock style={{ fontSize: '4rem' }} /><br />
             <span style={{ fontSize: '2rem' }}>Stocks Data</span>
-            <CryptoList />
         </div>
         </>
     )

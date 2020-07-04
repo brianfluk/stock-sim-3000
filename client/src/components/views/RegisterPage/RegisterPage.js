@@ -4,198 +4,156 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { registerUser } from "../../../_actions/user_actions";
 import { useDispatch } from "react-redux";
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 import {
   Form,
   Input,
+  InputNumber,
   Button,
+  Tooltip,
 } from 'antd';
 
-const formItemLayout = {
+
+const layout = {
   labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 8,
+    },
   },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 16 },
-  },
-};
-const tailFormItemLayout = {
   wrapperCol: {
     xs: {
       span: 24,
-      offset: 0,
     },
     sm: {
       span: 16,
-      offset: 8,
     },
+  },
+};
+const validateMessages = {
+  required: '${label} is required!',
+  types: {
+    email: '${label} is not a valid email!',
+    number: '${label} is not a valid number!',
+  },
+  number: {
+    range: '${label} must be between ${min} and ${max}',
   },
 };
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
+  const onFinish = values => {
+    console.log(values);
+
+    let dataToSubmit = {
+      username: values.username,
+      email: values.email,
+      password: values.password,
+    };
+  
+    dispatch(registerUser(dataToSubmit)).then(response => {
+      if (response.payload && response.payload.success) {
+        props.history.push("/login");
+      } else {
+        alert(response.payload.err.errmsg)
+      }
+    })
+  };
+
   return (
-
-    <Formik
-      initialValues={{
-        email: '',
-        lastName: '',
-        name: '',
-        password: '',
-        confirmPassword: ''
-      }}
-      validationSchema={Yup.object().shape({
-        name: Yup.string()
-          .required('Name is required'),
-        lastName: Yup.string()
-          .required('Last Name is required'),
-        email: Yup.string()
-          .email('Email is invalid')
-          .required('Email is required'),
-        password: Yup.string()
-          .min(6, 'Password must be at least 6 characters')
-          .required('Password is required'),
-        confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password'), null], 'Passwords must match')
-          .required('Confirm Password is required')
-      })}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-
-          let dataToSubmit = {
-            email: values.email,
-            password: values.password,
-            name: values.name,
-            lastname: values.lastname,
-            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
-          };
-
-          dispatch(registerUser(dataToSubmit)).then(response => {
-            if (response.payload && response.payload.success) {
-              props.history.push("/login");
-            } else {
-              alert(response.payload.err.errmsg)
+    <div className="app">
+      <h1 style={{ fontSize: '42px' }}>Sign up</h1>
+      <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
+      style={{width: '100%', maxWidth: '500px'}}>
+        <Form.Item
+          name='username'
+          label={
+            <span>
+            Username&nbsp;
+            <Tooltip title="The name that is displayed on the leaderboards">
+              <QuestionCircleOutlined />
+            </Tooltip>
+            </span>
+          }
+          rules={[
+            {
+              required: true,
+              message: 'Username is required!'
+            },
+            {
+              min: 4,
+              max: 25,
+              message: 'Usernames must be 4-25 characters'
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name='email'
+          label="Email"
+          rules={[
+            {
+              type: 'email',
+              required: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name='password'
+          label="Password"
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              min: 6,
+              message: 'Please enter a password at least 6 characters long.'
+            },
+            {
+              max: 256,
+              message: 'Password can be at most 256 characters'
             }
-          })
+          ]}
+        >
+          <Input.Password/>
+        </Form.Item>
+        <Form.Item
+          name='confirmPassword'
+          label="Confirm password"
+          dependencies={['password']}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('The two passwords that you entered do not match!');
+              },
+            }),
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-          setSubmitting(false);
-        }, 500);
-      }}
-    >
-      {props => {
-        const {
-          values,
-          touched,
-          errors,
-          dirty,
-          isSubmitting,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          handleReset,
-        } = props;
-        return (
-          <div className="app">
-            <h2>Sign up</h2>
-            <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
+        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+          <Button type="primary" htmlType="submit">
+            Register
+          </Button>
+        </Form.Item>
 
-              <Form.Item required label="Name">
-                <Input
-                  id="name"
-                  placeholder="Enter your name"
-                  type="text"
-                  value={values.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.name && touched.name ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.name && touched.name && (
-                  <div className="input-feedback">{errors.name}</div>
-                )}
-              </Form.Item>
+      </Form>
+      </div>
 
-              <Form.Item required label="Last Name">
-                <Input
-                  id="lastName"
-                  placeholder="Enter your Last Name"
-                  type="text"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.lastName && touched.lastName && (
-                  <div className="input-feedback">{errors.lastName}</div>
-                )}
-              </Form.Item>
-
-              <Form.Item required label="Email" hasFeedback validateStatus={errors.email && touched.email ? "error" : 'success'}>
-                <Input
-                  id="email"
-                  placeholder="Enter your Email"
-                  type="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.email && touched.email ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.email && touched.email && (
-                  <div className="input-feedback">{errors.email}</div>
-                )}
-              </Form.Item>
-
-              <Form.Item required label="Password" hasFeedback validateStatus={errors.password && touched.password ? "error" : 'success'}>
-                <Input
-                  id="password"
-                  placeholder="Enter your password"
-                  type="password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.password && touched.password ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.password && touched.password && (
-                  <div className="input-feedback">{errors.password}</div>
-                )}
-              </Form.Item>
-
-              <Form.Item required label="Confirm" hasFeedback>
-                <Input
-                  id="confirmPassword"
-                  placeholder="Enter your confirmPassword"
-                  type="password"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.confirmPassword && touched.confirmPassword ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.confirmPassword && touched.confirmPassword && (
-                  <div className="input-feedback">{errors.confirmPassword}</div>
-                )}
-              </Form.Item>
-
-              <Form.Item {...tailFormItemLayout}>
-                <Button onClick={handleSubmit} type="primary" disabled={isSubmitting}>
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
-        );
-      }}
-    </Formik>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -82,7 +82,7 @@ function LoginPage(props) {
         return (
           <div className="app">
 
-            <Title level={2}>Log In</Title>
+            <h1 style={{ fontSize: '42px' }}>Login</h1>
             <form onSubmit={handleSubmit} style={{ width: '350px' }}>
 
               <Form.Item required>
@@ -127,15 +127,15 @@ function LoginPage(props) {
 
               <Form.Item>
                 <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe} >Remember me</Checkbox>
-                <a className="login-form-forgot" href="/reset_user" style={{ float: 'right' }}>
+                <Link className="login-form-forgot" to="/reset_user" style={{ float: 'right' }}>
                   forgot password
-                  </a>
+                  </Link>
                 <div>
                   <Button type="primary" htmlType="submit" className="login-form-button" style={{ minWidth: '100%' }} disabled={isSubmitting} onSubmit={handleSubmit}>
                     Log in
                 </Button>
                 </div>
-                Or <a href="/register">register now!</a>
+                Or <Link to="/register">register now!</Link>
               </Form.Item>
             </form>
           </div>
