@@ -30,7 +30,7 @@ function NavBar(props) {
     return (
 
       <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu  theme="dark" mode="horizontal">
+        <Menu  theme="light" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             <StockOutlined />
             <Link to='/'>StockSim3000</Link>
@@ -55,7 +55,7 @@ function NavBar(props) {
     return (
 
       <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu className="no-selection" theme="dark" mode="horizontal">
+        <Menu className="no-selection" theme="light" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             <StockOutlined />
             <Link to='/'>StockSim3000</Link>
