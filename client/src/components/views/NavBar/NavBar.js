@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import axios from 'axios';
 import { USER_SERVER } from './../../Config';
 import './NavBar.scss';
-import logo from '../../../assets/logo_512.png';
+import logoLight from '../../../assets/logo512_light_nobg.png';
 
 const { Header } = Layout;
 
@@ -32,7 +32,7 @@ function NavBar(props) {
         <Menu  theme="dark" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             {/* <StockOutlined /> */}
-            <img src={logo} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
+            <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
             <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
           </Menu.Item>
           <Menu.Item key='about'>
@@ -58,7 +58,7 @@ function NavBar(props) {
         <Menu className="no-selection" theme="dark" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             {/* <StockOutlined /> */}
-            <img src={logo} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
+            <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
             <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
           </Menu.Item>
           <Menu.Item key='about'>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AiOutlineStock } from "react-icons/ai";
 import { FaBitcoin } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import logo from '../../../assets/logo_512.png'
+import logo from '../../../assets/logo512_dark_nobg.png'
 
 import { connect } from 'react-redux';
 
@@ -12,7 +12,7 @@ function AboutPage (props) {
         <>
         <div className="app">
             {/* <AiOutlineStock style={{ fontSize: '5rem' }} /><br /> */}
-            <img src={logo} alt='logo' style={{height: '80px', marginBottom: '16px'}} />
+            <img src={logo} alt='logo' style={{height: '140px', marginBottom: '16px'}} />
             <h1 style={{ fontSize: '42px' }}>Why StockSim3000?</h1>
             <p style={{ fontSize: '18px', whiteSpace: 'pre-wrap', textAlign: 'center' }}>
                 {`Practice and improve your investment skills and build a portfolio with zero risk.\n`}

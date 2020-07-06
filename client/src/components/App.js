@@ -53,7 +53,7 @@ function App() {
         <NavBar />
         <Layout>
           <SideNavBar />
-          <Layout style={{ padding: '0 24px 24px' }} theme='dark' className="layout-main-content">
+          <Layout  theme='dark' className="layout-main-content">
             <Content style={{ margin: '24px 16px 0' }}>
               <div style={{ padding: 24, minHeight: 360 }}>
                 <Switch>
