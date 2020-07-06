@@ -7,7 +7,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import axios from 'axios';
 import { USER_SERVER } from './../../Config';
-import './NavBar.scss';
 import logoLight from '../../../assets/logo512_dark_nobg.png';
 
 const { Header } = Layout;
