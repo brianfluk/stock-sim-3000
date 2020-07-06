@@ -29,6 +29,7 @@ function SideNavBar(props) {
         onCollapse={onCollapse}
         style={{
           paddingTop: '60px',
+          borderRight: '1px solid #f0f0f0 !important'
         }}
         className='no-select'
       >
@@ -37,6 +38,7 @@ function SideNavBar(props) {
           theme="light"
           mode="inline" 
           defaultSelectedKeys={['1']}
+          style={{borderRight: 'none'}}
         >
           <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}>
             <Menu.Item key="3">
