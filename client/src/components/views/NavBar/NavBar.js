@@ -1,8 +1,8 @@
 import React from 'react';
 // import LeftMenu from './Sections/LeftMenu';
-import LogoutMenu from './Sections/LogoutMenu';
+// import LogoutMenu from './Sections/LogoutMenu';
 import { Menu, Layout } from 'antd';
-import { StockOutlined } from '@ant-design/icons';
+// import { StockOutlined } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import axios from 'axios';
@@ -29,7 +29,10 @@ function NavBar(props) {
     return (
 
       <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu  theme="dark" mode="horizontal">
+        <Menu 
+          // theme="dark" 
+          mode="horizontal"
+        >
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             {/* <StockOutlined /> */}
             <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
@@ -55,7 +58,11 @@ function NavBar(props) {
     return (
 
       <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu className="no-selection" theme="dark" mode="horizontal">
+        <Menu 
+          // theme="dark" 
+          className="no-selection" 
+          mode="horizontal"
+        >
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
             {/* <StockOutlined /> */}
             <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>

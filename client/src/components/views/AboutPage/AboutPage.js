@@ -18,8 +18,8 @@ function AboutPage (props) {
                 {`Practice and improve your investment skills and build a portfolio with zero risk.\n`}
             </p>
             <p>
-                <FaBitcoin style={{ fontSize: '4rem', color: '#096dd9' }}/>
-                <AiOutlineStock style={{ fontSize: '4rem', color: '#096dd9' }} />
+                <FaBitcoin style={{ fontSize: '4rem', color: '#1446a0ff' }}/>
+                <AiOutlineStock style={{ fontSize: '4rem', color: '#1446a0ff' }} />
             </p>
             <h2 style={{ fontSize: '36px', marginTop: '20px', marginBottom:'14px' }}>
                 How to get started:

@@ -21,7 +21,10 @@ function RightMenu(props) {
 
   if (user.userData && !user.userData.isAuth) {
     return (
-      <Menu mode="horizontal" theme="dark">
+      <Menu 
+        mode="horizontal" 
+        // theme="dark"
+      >
         <Menu.Item key="signin">
           <Link to="/login">Signin</Link>
         </Menu.Item>
@@ -32,7 +35,10 @@ function RightMenu(props) {
     )
   } else {
     return (
-      <Menu theme="dark" mode="horizontal">
+      <Menu 
+        mode="horizontal"
+        // theme="dark" 
+      >
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>
