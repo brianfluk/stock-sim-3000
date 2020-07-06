@@ -1,15 +1,14 @@
 import React from 'react';
 // import LeftMenu from './Sections/LeftMenu';
-import RightMenu from './Sections/RightMenu';
+import LogoutMenu from './Sections/LogoutMenu';
 import { Menu, Layout } from 'antd';
 import { StockOutlined } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
-import './Sections/Navbar.css';
 import { useSelector } from "react-redux";
 import axios from 'axios';
 import { USER_SERVER } from './../../Config';
-import './navBar.scss';
-import '../styles.scss';
+import './NavBar.scss';
+import logo from '../../../assets/logo_512.png';
 
 const { Header } = Layout;
 
@@ -30,10 +29,11 @@ function NavBar(props) {
     return (
 
       <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu  theme="light" mode="horizontal">
+        <Menu  theme="dark" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
-            <StockOutlined />
-            <Link to='/'>StockSim3000</Link>
+            {/* <StockOutlined /> */}
+            <img src={logo} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
+            <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
           </Menu.Item>
           <Menu.Item key='about'>
             <Link to="/about">About</Link>
@@ -55,10 +55,11 @@ function NavBar(props) {
     return (
 
       <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu className="no-selection" theme="light" mode="horizontal">
+        <Menu className="no-selection" theme="dark" mode="horizontal">
           <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
-            <StockOutlined />
-            <Link to='/'>StockSim3000</Link>
+            {/* <StockOutlined /> */}
+            <img src={logo} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
+            <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
           </Menu.Item>
           <Menu.Item key='about'>
             <Link to="/about">About</Link>

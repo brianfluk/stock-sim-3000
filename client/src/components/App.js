@@ -4,6 +4,7 @@ import Auth from "../hoc/auth";
 // pages for this product
 import LandingPage from "./views/LandingPage/LandingPage.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
+import ForgotPassPage from "./views/ForgotPassPage/ForgotPassPage.js";
 import AboutPage from './views/AboutPage/AboutPage.js';
 import BrowseCryptoPage from './views/Crypto/BrowseCryptoPage.js';
 import CryptoPage from './views/Crypto/CryptoPage.js';
@@ -14,6 +15,8 @@ import PortfolioPage from './views/PortfolioPage/PortfolioPage.js';
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import SideNavBar from "./views/NavBar/SideNavBar";
+import './App.scss';
+
 
 import { useDispatch } from "react-redux";
 import { getCryptoList } from "../_actions/crypto_actions";
@@ -50,7 +53,7 @@ function App() {
         <NavBar />
         <Layout>
           <SideNavBar />
-          <Layout style={{ padding: '0 24px 24px' }}>
+          <Layout style={{ padding: '0 24px 24px' }} theme='dark' className="layout-main-content">
             <Content style={{ margin: '24px 16px 0' }}>
               <div style={{ padding: 24, minHeight: 360 }}>
                 <Switch>
@@ -59,12 +62,13 @@ function App() {
                   <Route exact path="/register" component={Auth(RegisterPage, false)} />
                   <Route exact path="/about" component={AboutPage} />
                   <Route exact path="/preferences" component={Auth(PreferencesPage, true)} />
-                  <Route exact path="/browse-crypto" component={Auth(BrowseCryptoPage, null)} />
-                  <Route exact path="/browse-stocks" component={Auth(BrowseStocksPage, null)} />
+                  <Route exact path="/browse-crypto" component={BrowseCryptoPage} />
+                  <Route exact path="/browse-stocks" component={BrowseStocksPage} />
                   <Route exact path="/portfolio" component={Auth(PortfolioPage, true)} />
-                  <Route exact path="/leaderboards" component={Auth(LeaderboardsPage, null)} />
+                  <Route exact path="/leaderboards" component={LeaderboardsPage} />
+                  <Route exact path="/forgot-password" component={ForgotPassPage} />
                   <Route path="/crypto/:id" component={Auth(CryptoPage, null)} />
-                  <Redirect to={Auth(LandingPage, null)} />
+                  <Route render={() => <Redirect to="/" />} />
                 </Switch>
               </div>
             </Content>
