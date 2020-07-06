@@ -2,7 +2,6 @@ import React from 'react';
 // import LeftMenu from './Sections/LeftMenu';
 import { } from '@ant-design/icons';
 import { Link, withRouter } from 'react-router-dom';
-import './SideNavBar.scss';
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 import { Layout, Menu } from 'antd';
@@ -70,7 +69,9 @@ function SideNavBar(props) {
           theme="light"
           mode="inline"
           defaultSelectedKeys={['1']}
+          style={{borderRight: 'none'}}
         >
+          {/* {(user.userData && !user.userData.isAuth)} */}
           <Menu.Item key="2" icon={<FolderOutlined />}>
             <Link to="portfolio">Portfolio</Link>
           </Menu.Item>
