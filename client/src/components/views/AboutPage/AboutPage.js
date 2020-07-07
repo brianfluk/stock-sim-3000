@@ -13,7 +13,7 @@ function AboutPage (props) {
         <div className="app">
             {/* <AiOutlineStock style={{ fontSize: '5rem' }} /><br /> */}
             <img src={logo} alt='logo' style={{height: '140px', marginBottom: '16px'}} />
-            <h1 style={{ fontSize: '42px' }}>Why StockSim3000?</h1>
+            <h1 style={{ fontSize: '42px' }}>Why Stock Sim 3000?</h1>
             <p style={{ fontSize: '18px', whiteSpace: 'pre-wrap', textAlign: 'center' }}>
                 {`Practice and improve your investment skills and build a portfolio with zero risk.\n`}
             </p>

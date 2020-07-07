@@ -75,7 +75,9 @@ function App() {
                 </Switch>
               </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>By Brian <GithubOutlined /></Footer>
+            {/* <Footer className="footer" style={{ textAlign: 'center' }}>
+              Created by Brian<GithubOutlined style={{marginLeft: '15px'}}/>
+            </Footer> */}
           </Layout>
         </Layout>
       </Layout>

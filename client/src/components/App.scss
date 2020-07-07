@@ -4,10 +4,12 @@
 /* SCSS HEX */
 $space-cadet: #273043ff;
 $cobalt-blue: #1446a0ff;
+$very-pale-blue: #f6f6fa;
 $cool-grey: #9197aeff;
 $mint-cream: #eff6eeff;
 $imperial-red: #f02d3aff;
 $amaranth-red: #dd0426ff;
+
 /* SCSS RGB */
 $space-cadet: rgba(39, 48, 67, 1);
 $cobalt-blue: rgba(20, 70, 160, 1);
@@ -31,9 +33,34 @@ $amaranth-red: rgba(221, 4, 38, 1);
     // color: white;
     color: $cobalt-blue;
 }
+.sider-theme {
+    background-color: $very-pale-blue;
+    // border-right: 1px solid rgb(240, 240, 240);
+    div, ul {
+        background-color: $very-pale-blue;
+        // border-right: 1px solid rgb(240, 240, 240);
+        // border-right: 1px solid #d6e4ff;
+    }
+    // ul.sider-menu {
+    //     // border-right: 1px solid rgb(240, 240, 240);
+    //     // border-right: 1px solid #d6e4ff;
+    // }
+}
 
 /* Layout */
 .layout-main-content {
     // background-color: #000015;
     background-color: #FFF;
+    padding-top: 66px; // height of navbar
+    height: 100vh;
+    overflow: scroll;
+}
+.footer {
+    background-color: $very-pale-blue;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
 }

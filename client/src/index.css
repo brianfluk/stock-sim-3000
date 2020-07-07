@@ -25,7 +25,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
+  /* overflow: scroll; */
+  /* height: calc(100vh - 72px - 48px); */
 }
 
 input.error {

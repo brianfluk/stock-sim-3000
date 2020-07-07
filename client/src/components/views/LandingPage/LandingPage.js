@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineStock } from "react-icons/ai";
+import logo from '../../../assets/logo512_dark_nobg.png'
 
 import { connect } from 'react-redux';
 // import { useDispatch } from "react-redux";
@@ -7,19 +8,12 @@ import { connect } from 'react-redux';
 
 
 function LandingPage (props) {
-    // const dispatch = useDispatch();
-    // let rendered = false;
-    // useEffect(function() {
-    //     dispatch(getCryptoList()).then(response => {
-    //         rendered = true
-    //     })
-    // }, [rendered])
     
     return (
         <>
         <div className="app">
-            <AiOutlineStock style={{ fontSize: '4rem' }} /><br />
-            <span style={{ fontSize: '2rem' }}>Stocks Data</span>
+            <img src={logo} alt='logo' style={{height: '140px', marginBottom: '16px'}} />
+            <h1 style={{ fontSize: '42px' }}>Stock Sim 3000</h1>
         </div>
         </>
     )

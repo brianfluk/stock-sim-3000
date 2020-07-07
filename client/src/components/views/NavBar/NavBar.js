@@ -24,63 +24,49 @@ function NavBar(props) {
     });
   };
 
-  if (user.userData && !user.userData.isAuth) { // not logged in
-    return (
+  return (
 
-      <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu 
-          // theme="dark" 
-          mode="horizontal"
-        >
-          <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
-            {/* <StockOutlined /> */}
-            <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
-            <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
-          </Menu.Item>
-          <Menu.Item key='about'>
-            <Link to="/about">About</Link>
-          </Menu.Item>
-          <Menu.Item key='leaderboards'>
-            <Link to="/leaderboards">Leaderboards</Link>
-          </Menu.Item>
+    <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
+      <Menu 
+        // theme="dark" 
+        mode="horizontal"
+      >
+        <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
+          {/* <StockOutlined /> */}
+          <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
+          <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
+        </Menu.Item>
+        <Menu.Item key='about'>
+          <Link to="/about">About</Link>
+        </Menu.Item>
+        <Menu.Item key='leaderboards'>
+          <Link to="/leaderboards">Leaderboards</Link>
+        </Menu.Item>
+
+        {/* not signed in */}
+        {(user.userData && !user.userData.isAuth) &&
           <Menu.Item key="signin" style={{float: 'right'}}>
             <Link to="/login">Signin</Link>
           </Menu.Item>
+        }
+        {(user.userData && !user.userData.isAuth) &&
           <Menu.Item key="signup" style={{float: 'right'}}>
             <Link to="/register">Signup</Link>
           </Menu.Item>
-        </Menu>
-      </Header>
-      
-    )
-  } else {
-    return (
+        }
 
-      <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
-        <Menu 
-          // theme="dark" 
-          className="no-selection" 
-          mode="horizontal"
-        >
-          <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
-            {/* <StockOutlined /> */}
-            <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
-            <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
-          </Menu.Item>
-          <Menu.Item key='about'>
-            <Link to="/about">About</Link>
-          </Menu.Item>
-          <Menu.Item key='leaderboards'>
-            <Link to="/leaderboards">Leaderboards</Link>
-          </Menu.Item>
+        {/* signed in */}
+        {!(user.userData && !user.userData.isAuth) &&
           <Menu.Item key="logout" style={{float: 'right'}}>
             <a onClick={logoutHandler}>Logout</a>
           </Menu.Item>
-        </Menu>
-      </Header>
-      
-    )
-  }
+        }
+
+        
+      </Menu>
+    </Header>
+    
+  )
   
 }
 

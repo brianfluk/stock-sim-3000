@@ -17,79 +17,51 @@ function SideNavBar(props) {
     setCollapsed(val)
   }
 
-  if (user.userData && !user.userData.isAuth) { // not logged in  
-    return (
-      <Sider
-        mode="inline"
-        breakpoint="lg"
+  return (
+    <Sider
+      mode="inline"
+      breakpoint="lg"
+      theme="light"
+      collapsible
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+      style={{
+        paddingTop: '60px',
+      }}
+      className='sider-theme no-select'
+    >
+      <div className="logo" />
+      <Menu 
         theme="light"
-        collapsible
-        collapsed={collapsed}
-        onCollapse={onCollapse}
-        style={{
-          paddingTop: '60px',
-          borderRight: '1px solid #f0f0f0 !important'
-        }}
-        className='no-select'
+        mode="inline" 
+        defaultSelectedKeys={['1']}
+        style={{borderRight: 'none'}}
+        // className='sider-menu'
       >
-        <div className="logo" />
-        <Menu 
-          theme="light"
-          mode="inline" 
-          defaultSelectedKeys={['1']}
-          style={{borderRight: 'none'}}
-        >
-          <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}>
-            <Menu.Item key="3">
-              <Link to="/browse-stocks">Stocks</Link>
-            </Menu.Item>
-            <Menu.Item key="4">
-              <Link to='browse-crypto'>Crypto</Link>
-            </Menu.Item>
-          </Menu.SubMenu>
-        </Menu>
-      </Sider>
-    )
-  } else {
-    return (
-      <Sider
-        mode="inline"
-        breakpoint="lg"
-        collapsible
-        collapsed={collapsed}
-        onCollapse={onCollapse}
-        theme="light"
-        style={{
-          paddingTop: '60px',
-        }}
-        className='no-select'
-      >
-        <div className="logo" />
-        <Menu
-          theme="light"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          style={{borderRight: 'none'}}
-        >
-          {/* {(user.userData && !user.userData.isAuth)} */}
+        {(user.userData && user.userData.isAuth) &&
           <Menu.Item key="2" icon={<FolderOutlined />}>
             <Link to="portfolio">Portfolio</Link>
           </Menu.Item>
-          <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}>
-            <Menu.Item key="3">
-              <Link to="/browse-stocks">Stocks</Link>
-            </Menu.Item>
-            <Menu.Item key="4">
-              <Link to='browse-crypto'>Crypto</Link>
-            </Menu.Item>
-          </Menu.SubMenu>
+        }
+
+        <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}>
+          <Menu.Item key="3">
+            <Link to="/browse-stocks">Stocks</Link>
+          </Menu.Item>
+          <Menu.Item key="4">
+            <Link to='browse-crypto'>Crypto</Link>
+          </Menu.Item>
+        </Menu.SubMenu>
+        
+        {(user.userData && user.userData.isAuth) &&
           <Menu.Item key="5" icon={<ToolFilled />}>
             <Link to="preferences">Preferences</Link>
           </Menu.Item>
-        </Menu>
-      </Sider>
-    )
-  }
+        }
+      </Menu>
+    </Sider>
+  )
+
 }
 
 export default withRouter(SideNavBar);
