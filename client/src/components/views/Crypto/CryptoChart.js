@@ -11,7 +11,7 @@ function CryptoChart() {
         </div>
     )
 }
-CryptoList.propTypes = {
+CryptoChart.propTypes = {
 }
 
 const mapStateToProps = state => ({

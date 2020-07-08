@@ -6,7 +6,7 @@ function PortfolioPage (props) {
     
     return (
         <>
-        <div className="app">
+        <div className="app padded">
             <h1 style={{ fontSize: '42px' }}>Portfolio</h1>
             <h2>{props.userData && props.userData.email}</h2>
         </div>

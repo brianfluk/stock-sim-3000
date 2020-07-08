@@ -21,6 +21,7 @@
 .list-nav-secondary {
     display: flex;
     flex-direction: row;
+    align-items: center;
     margin-top: 10px;
     .go-to-page-input {
         width: 80px;
@@ -28,6 +29,9 @@
         &::placeholder {
             text-align: right;
         }
+    }
+    .crypto-nav-search {
+        margin-left: 12px;
     }
     p {
         margin: 0;
@@ -38,4 +42,27 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+.list-entries {
+    .list-entry {
+        .crypto-link {
+            width: 100%;
+            padding: 5px 10px;
+            margin-right: 60px;
+            color: #141414;
+            &:hover {
+                color: #1446a0ff;
+            }
+
+        }
+        border: 1px solid #d9d9d9;
+        border-bottom:none;
+        &:last-of-type {
+            border-bottom: 1px solid #d9d9d9;
+        }
+        padding: 2px;
+    }
+
+
 }

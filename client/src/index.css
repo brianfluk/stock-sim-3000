@@ -25,9 +25,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
   /* height: 100vh; */
   /* overflow: scroll; */
   /* height: calc(100vh - 72px - 48px); */
+}
+
+.padded {
+  padding: 24px 16px;
 }
 
 input.error {

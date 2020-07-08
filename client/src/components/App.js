@@ -57,8 +57,8 @@ function App() {
             // theme='dark' 
             className="layout-main-content"
           >
-            <Content style={{ margin: '24px 16px 0' }}>
-              <div style={{ padding: 24, minHeight: 360 }}>
+            <Content style={{ margin: '0px 0px 0px 2px' }}>
+              <div >
                 <Switch>
                   <Route exact path="/" component={Auth(LandingPage, null)} />
                   <Route exact path="/login" component={Auth(LoginPage, false)} />

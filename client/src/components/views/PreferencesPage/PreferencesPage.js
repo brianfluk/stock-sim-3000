@@ -7,7 +7,7 @@ function PreferencesPage (props) {
     
     return (
         <>
-        <div className="app">
+        <div className="app padded">
             <h1 style={{ fontSize: '42px' }}>Preferences</h1>
         </div>
         </>

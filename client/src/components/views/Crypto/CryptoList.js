@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import './cryptoList.scss'
-import { Button, Input } from 'antd';
+import './CryptoList.scss'
+import { Button, Input, Tooltip } from 'antd';
 import { LeftOutlined, RightOutlined, PlusOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 /** Put on hold because bugs */
 function CryptoList(props) {
@@ -55,11 +56,6 @@ function CryptoList(props) {
                 pageNum * pageSize,
                 Math.min((Number(pageNum) + 1)*pageSize, newFilteredList.length)) : 
             [{ "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" }]
-        // const newCurrPageSlice = await listExists ? 
-        //     filteredList.slice(
-        //         pageNum * pageSize,
-        //         Math.min((Number(pageNum) + 1)*pageSize, filteredList.length)) : 
-        //     [{ "id": "bitcoin", "symbol": "btc", "name": "Bitcoin" }]
         setCurrPageSlice(newCurrPageSlice)
 
         if (searchVal) {
@@ -86,7 +82,7 @@ function CryptoList(props) {
 
     function goToPage(event) {
         const page = Number(event.nativeEvent.target.value);
-        if (event.nativeEvent.key=="Enter" && page > 0 && page <= maxPage) {
+        if (event.nativeEvent.key=="Enter" && page > 0 && page <= maxPage + 1) {
             setPageNum(page - 1) // UI paging starts at 0
         }
     }
@@ -102,21 +98,24 @@ function CryptoList(props) {
 
     return (
         <div className='list-container'>
-            {filteredList &&
-            // {props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data &&
-                // JSON.stringify(currPage);
-                currPageSlice.map((val, key) => {
-                    return (
-                        <div style={{width:'100%', display: 'flex', justifyContent: 'space-between', marginBottom: '5px'}}>
-                            <Button key={key}>
-                                <span style={{fontWeight:'bold'}}>{val.name}</span> &nbsp;| {val.symbol}
-                            </Button>
-                            <Button type="primary"><PlusOutlined /></Button>
-                        </div>
-                    )
-                })
-                // <List dataSource={currPage}/>
-            }
+            <div className='list-entries'>
+                {filteredList &&
+                    currPageSlice.map((val, key) => {
+                        return (
+                            <div style={{width:'100%', display: 'flex', justifyContent: 'space-between'}} className="list-entry">
+                                <Link to={`/crypto/${val.id}`} key={key} className="crypto-link">
+                                    <span style={{fontWeight:'bold'}}>{val.name}</span> &nbsp;| {val.symbol}
+                                </Link>
+                                <Tooltip placement="right" title="Add to watchlist">
+                                    <Button type="primary"><PlusOutlined /></Button>
+                                </Tooltip>
+                            </div>
+                        )
+                    })
+                    // <List dataSource={currPage}/>
+                }
+            </div>
+
             <div className="list-nav-container">
                 <Button type="primary" onClick={prevPage}><LeftOutlined /></Button>
                 <div className="page-num-container">
@@ -131,8 +130,8 @@ function CryptoList(props) {
             </div>
             <div className='list-nav-secondary'>
                 <p>Go&nbsp;to:</p>
-                <Input className="go-to-page-input" onKeyUp={goToPage} placeholder={` /${maxPage + 1}`}/>
-                <Input.Search onSearch={searchCoin} placeholder="Search for crypto" enterButton={true}/>
+                <Input className="go-to-page-input" onKeyUp={goToPage} placeholder=''/>{` /${maxPage + 1}`}
+                <Input.Search className="crypto-nav-search" onSearch={searchCoin} placeholder="Search for crypto" enterButton={true}/>
             </div>
             {/* <Pagination className="ant-pagination" current={pageNum} pageSize={pageSize} showSizeChanger={false} total={1000}/> */}
         </div>

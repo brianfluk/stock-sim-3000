@@ -7,8 +7,8 @@ import CryptoList from './CryptoList';
 
 function BrowseCryptoPage (props) {
     return (
-        <div className="app">
-            <FaBitcoin style={{ fontSize: '4rem' }}/>
+        <div className="app padded">
+            <FaBitcoin style={{ fontSize: '50px', color: '#ffc53d' }}/>
             <h1 style={{ fontSize: '42px', marginBottom: '20px' }}>Browse Cryptocurrencies</h1>
             <CryptoList />
         </div>

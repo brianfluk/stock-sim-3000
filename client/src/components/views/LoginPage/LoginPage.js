@@ -53,7 +53,7 @@ function LoginPage(props) {
   };
 
   return (
-    <div className='app'>
+    <div className='app padded login-padding'>
       <h1 style={{ fontSize: '42px' }}>Login</h1>
       <Form
         name="normal_login"

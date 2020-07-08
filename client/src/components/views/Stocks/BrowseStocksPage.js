@@ -7,7 +7,7 @@ function BrowseStocksPage (props) {
     
     return (
         <>
-        <div className="app">
+        <div className="app padded">
             <h1 style={{ fontSize: '42px' }}>Stocks</h1>
         </div>
         </>
