@@ -3,11 +3,9 @@ import { AiOutlineStock } from "react-icons/ai";
 import logo from '../../../assets/logo512_dark_nobg.png'
 import mountainBG from '../../../assets/mountain-bg2.jpg'
 import {Button} from 'antd';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { urlencoded } from 'body-parser';
-// import { useDispatch } from "react-redux";
-// import { getCryptoList } from "../../../_actions/crypto_actions";
 
 
 function LandingPage (props) {
@@ -32,9 +30,9 @@ function LandingPage (props) {
                 // textShadow: '2px 5px 18px #000000'
             }}>Stock Sim 3000</h1>
             <div className="landing-button-container"> 
-                <Button className="landing-button">Leaderboards</Button>
-                <Button className="landing-button">Portfolio</Button>
-                <Button className="landing-button">Explore</Button>
+                <Link to="/leaderboards"><Button className="landing-button">Leaderboards</Button></Link>
+                <Link to="/portfolio"><Button className="landing-button">Portfolio</Button></Link>
+                <Link to="/browse-crypto"><Button className="landing-button">Explore</Button></Link>
             </div>
         </div>
         </>

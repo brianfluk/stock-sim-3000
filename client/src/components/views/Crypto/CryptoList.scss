@@ -66,3 +66,12 @@
 
 
 }
+
+.crypto-list-table {
+    td.ant-table-cell {
+        padding: 6px 16px;
+        // &:last-of-type { // actions button
+        //     width: 32px;
+        // }
+    }
+}

@@ -28,8 +28,8 @@ function NavBar(props) {
 
     <Header className='no-select' style={{ padding: 0, position: 'fixed', zIndex: 1, width: '100%'  }} >
       <Menu 
-        // theme="dark" 
         mode="horizontal"
+        className="navbar-header-menu"
       >
         <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
           {/* <StockOutlined /> */}

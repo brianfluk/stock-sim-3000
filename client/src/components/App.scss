@@ -39,6 +39,9 @@ $amaranth-red: rgba(221, 4, 38, 1);
         background-color: $very-pale-blue;
     }
 }
+.navbar-header-menu {
+    box-shadow: 0 0px 4px rgba($cobalt-blue, 0.1)
+}
 
 /* Layout */
 .layout-main-content {
