@@ -84,6 +84,14 @@ $amaranth-red: rgba(221, 4, 38, 1);
 .login-padding {
     padding-top: 70px;
 }
+.landing-page-container {
+    height: calc(100vh - 66px);
+    justify-content: 'start';
+    padding-top: '80px';
+    overflow: scroll;
+    background-image: url('../assets/mountain-bg2.jpg');
+    background-size: cover;
+}
 
 
 /* Landing page */

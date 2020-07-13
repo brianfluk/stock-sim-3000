@@ -12,13 +12,8 @@ function LandingPage (props) {
     
     return (
         <>
-        <div className="app" style={{
-            backgroundImage: `url(${mountainBG})`,
-            backgroundSize: 'cover',
-            height: 'calc(100vh - 66px)',
-            justifyContent: 'start',
-            paddingTop: '80px'
-        }}>
+        <div className="app landing-page-container" 
+        >
             <img src={logo} alt='logo' style={{height: '140px', marginBottom: '16px'}} />
             <h1 style={{
                 fontSize: '60px', 
@@ -29,7 +24,7 @@ function LandingPage (props) {
                 fontStyle: 'italic'
                 // textShadow: '2px 5px 18px #000000'
             }}>Stock Sim 3000</h1>
-            <div className="landing-button-container"> 
+            <div className="landing-button-container" style={{paddingBottom: '200px'}}> 
                 <Link to="/leaderboards"><Button className="landing-button">Leaderboards</Button></Link>
                 <Link to="/portfolio"><Button className="landing-button">Portfolio</Button></Link>
                 <Link to="/browse-crypto"><Button className="landing-button">Explore</Button></Link>

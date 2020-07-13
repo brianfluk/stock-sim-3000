@@ -58,8 +58,8 @@ function App() {
             // theme='dark' 
             className="layout-main-content"
           >
-            <Content style={{ margin: '0px 0px 0px 2px' }}>
-              <div >
+            <Content style={{ margin: '0px 0px 0px 2px', overflow:'scroll'}}>
+              <div style={{overflow:'scroll'}}>
                 <Switch>
                   <Route exact path="/" component={Auth(LandingPage, null)} />
                   <Route exact path="/login" component={Auth(LoginPage, false)} />
