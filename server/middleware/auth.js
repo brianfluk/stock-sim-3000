@@ -1,4 +1,5 @@
 const { User } = require('../models/User');
+const { check, validationResult } = require('express-validator')
 
 let auth = (req, res, next) => {
   let token = req.cookies.w_auth;

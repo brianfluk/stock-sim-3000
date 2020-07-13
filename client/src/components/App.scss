@@ -28,10 +28,26 @@ $amaranth-red: rgba(221, 4, 38, 1);
                         supported by Chrome, Edge, Opera and Firefox */
 }
 
+/* App-wide i.e. Global */
+.page-heading {
+    font-size: 42px;
+    @media screen and (max-width: 768px){
+        font-size: 8vw;
+    }
+}
+.page-h2 {
+    font-size: 36px;
+    @media screen and (max-width: 768px){
+        font-size: 6vw;
+    }
+}
+
+
 /* Navbar*/
 .nav-logo {
     color: $cobalt-blue;
     font-style: italic;
+    font-weight: bold;
 }
 .sider-theme {
     background-color: $very-pale-blue;
@@ -41,6 +57,11 @@ $amaranth-red: rgba(221, 4, 38, 1);
 }
 .navbar-header-menu {
     box-shadow: 0 0px 4px rgba($cobalt-blue, 0.1)
+}
+.mobile-collapse {
+    @media screen and (max-width: 768px){
+        display:none
+    }
 }
 
 /* Layout */

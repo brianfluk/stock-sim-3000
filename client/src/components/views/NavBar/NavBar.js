@@ -31,10 +31,10 @@ function NavBar(props) {
         mode="horizontal"
         className="navbar-header-menu"
       >
-        <Menu.Item className="no-selection" key='main' style={{width: '200px'}}>
+        <Menu.Item className="no-selection" key='main' style={{width: '200px', borderBottom: 'none'}}>
           {/* <StockOutlined /> */}
           <img src={logoLight} alt='logo' style={{height:'30px', marginRight:'10px' }}/>
-          <Link to='/'><span className="nav-logo">StockSim3000</span></Link>
+          <Link to='/'><span className="nav-logo">Stock Sim 3000</span></Link>
         </Menu.Item>
         <Menu.Item key='about'>
           <Link to="/about">About</Link>
@@ -44,21 +44,26 @@ function NavBar(props) {
         </Menu.Item>
 
         {/* not signed in */}
-        {(user.userData && !user.userData.isAuth) &&
+        {(!user.userData || (user.userData && !user.userData.isAuth)) &&
           <Menu.Item key="signin" style={{float: 'right'}}>
             <Link to="/login">Signin</Link>
           </Menu.Item>
         }
-        {(user.userData && !user.userData.isAuth) &&
+        {(!user.userData || (user.userData && !user.userData.isAuth)) &&
           <Menu.Item key="signup" style={{float: 'right'}}>
             <Link to="/register">Signup</Link>
           </Menu.Item>
         }
 
         {/* signed in */}
-        {!(user.userData && !user.userData.isAuth) &&
+        {(user.userData && user.userData.isAuth) &&
           <Menu.Item key="logout" style={{float: 'right'}}>
             <a onClick={logoutHandler}>Logout</a>
+          </Menu.Item>
+        }
+        {(user.userData && user.userData.isAuth) &&
+          <Menu.Item key="user" style={{float: 'right'}}>
+            <Link to="/preferences">{user.userData.username}</Link>
           </Menu.Item>
         }
 

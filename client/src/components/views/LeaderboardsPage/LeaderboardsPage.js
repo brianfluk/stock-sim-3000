@@ -41,7 +41,7 @@ function LeaderboardsPage (props) {
     return (
         <div className="app padded">
             <GiLaurelCrown style={{fontSize: '4rem'}} color='#ffc53d'/>
-            <h1 style={{ fontSize: '42px' }}>Leaderboards1</h1>
+            <h1 className="page-heading">Leaderboards</h1>
             <Table columns={columns} dataSource={data}></Table>
         </div>
     )

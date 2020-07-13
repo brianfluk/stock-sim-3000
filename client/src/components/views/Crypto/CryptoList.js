@@ -12,32 +12,27 @@ import { SearchOutlined } from '@ant-design/icons';
 /** Put on hold because bugs */
 function CryptoList(props) {
     const [listHasBeenSet, setListHasBeenSet] = useState(false)
-    const [filteredList, setFilteredList] = useState((props.cryptoList && props.cryptoList.data && props.cryptoList.data.data) ? props.cryptoList.data.data : [])
+    const [filteredList, setFilteredList] = useState((props.cryptoList && props.cryptoList.info && props.cryptoList.info.data) ? props.cryptoList.info.data : [])
     const [searchText, setSearchText] = useState('')
     const [searchedColumn, setSearchedColumn] = useState('')
     let searchInput = useRef()
 
     useEffect(()=> {
-        const listExists = Boolean(props.cryptoList && (props.cryptoList.data.code==200) && props.cryptoList.data.data);
+        const listExists = Boolean(props.cryptoList && (props.cryptoList.info.code==200) && props.cryptoList.info.data);
         if (listExists && !listHasBeenSet) { // wait until redux store has been updated
-            setFilteredList(props.cryptoList.data.data)
+            setFilteredList(props.cryptoList.info.data)
             setListHasBeenSet(true)
         }
     }, [props.cryptoList, listHasBeenSet])
 
     const handleSearch = (selectedKeys, confirm, dataIndex) => {
         confirm();
-        // this.setState({
-        //     searchText: selectedKeys[0],
-        //     searchedColumn: dataIndex,
-        // });
         setSearchText(selectedKeys[0])
         setSearchedColumn(dataIndex)
     };
 
     const handleReset = clearFilters => {
         clearFilters();
-        // this.setState({ searchText: '' });
         setSearchText('')
     };
 
@@ -87,7 +82,11 @@ function CryptoList(props) {
               textToHighlight={text.toString()}
             />
           ) : (
-            text
+            dataIndex === 'name' ? 
+              <Link to={`/crypto/${text}`}>
+                {text} 
+              </Link>
+            : ( text )
           ),
     });
     
@@ -108,7 +107,8 @@ function CryptoList(props) {
         {
             title: 'Symbol',
             dataIndex: 'symbol',
-            key: 'symbol'
+            key: 'symbol',
+            ...getColumnSearchProps('symbol'),
         },
         {
             title: '',

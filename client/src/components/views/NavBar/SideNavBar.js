@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 import { Layout, Menu } from 'antd';
-import { ToolFilled, FolderOutlined, SearchOutlined  } from '@ant-design/icons';
+import { ToolFilled, FolderOutlined, SearchOutlined, StarOutlined  } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
@@ -28,7 +28,7 @@ function SideNavBar(props) {
       style={{
         paddingTop: '60px',
       }}
-      className='sider-theme no-select'
+      className='sider-theme no-select mobile-collapse'
     >
       <div className="logo" />
       <Menu 
@@ -39,23 +39,27 @@ function SideNavBar(props) {
         // className='sider-menu'
       >
         {(user.userData && user.userData.isAuth) &&
-          <Menu.Item key="2" icon={<FolderOutlined />}>
-            <Link to="portfolio">Portfolio</Link>
+          <Menu.Item key="portfolio" icon={<FolderOutlined />}>
+            <Link to="/portfolio">Portfolio</Link>
           </Menu.Item>
         }
-
+        {(user.userData && user.userData.isAuth) &&
+          <Menu.Item key="watchlist" icon={<StarOutlined />}>
+            <Link to="/watchlist">Watchlist</Link>
+          </Menu.Item>
+        }
         <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}>
-          <Menu.Item key="3">
+          <Menu.Item key="stocks">
             <Link to="/browse-stocks">Stocks</Link>
           </Menu.Item>
-          <Menu.Item key="4">
-            <Link to='browse-crypto'>Crypto</Link>
+          <Menu.Item key="crypto">
+            <Link to='/browse-crypto'>Cryptocurrencies</Link>
           </Menu.Item>
         </Menu.SubMenu>
         
         {(user.userData && user.userData.isAuth) &&
-          <Menu.Item key="5" icon={<ToolFilled />}>
-            <Link to="preferences">Preferences</Link>
+          <Menu.Item key="preferences" icon={<ToolFilled />}>
+            <Link to="/preferences">Preferences</Link>
           </Menu.Item>
         }
       </Menu>

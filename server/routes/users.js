@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
+const { check, body, validationResult } = require('express-validator');
 
 const { auth } = require("../middleware/auth");
 
@@ -21,7 +22,17 @@ router.get("/auth", auth, (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", [
+    body('email').isEmail(),
+    body('username').isLength({min:4, max:25}),
+    body('password').isLength({min:6, max:256}),
+    body('firstname').isLength({min:1, max:256}),
+    body('lastname').isLength({min:1, max:256}),
+], (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     const user = new User(req.body);
     user.startDate = new Date()
@@ -34,8 +45,15 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", [
+    body('email').isEmail(),
+], (req, res) => {
     console.log(req.body)
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user)
             return res.json({

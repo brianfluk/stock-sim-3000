@@ -6,11 +6,10 @@ import { connect } from 'react-redux';
 function BrowseStocksPage (props) {
     
     return (
-        <>
         <div className="app padded">
-            <h1 style={{ fontSize: '42px' }}>Stocks</h1>
+            <AiOutlineStock style={{fontSize: '50px', color: '#1446a0ff'}} />
+            <h1 className="page-heading">Stocks</h1>
         </div>
-        </>
     )
 }
 

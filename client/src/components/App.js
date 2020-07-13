@@ -13,6 +13,7 @@ import PreferencesPage from './views/PreferencesPage/PreferencesPage.js';
 import LeaderboardsPage from './views/LeaderboardsPage/LeaderboardsPage.js';
 import PortfolioPage from './views/PortfolioPage/PortfolioPage.js';
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
+import WatchlistPage from "./views/WatchlistPage/WatchlistPage.js";
 import NavBar from "./views/NavBar/NavBar";
 import SideNavBar from "./views/NavBar/SideNavBar";
 import './App.scss';
@@ -70,6 +71,7 @@ function App() {
                   <Route exact path="/portfolio" component={Auth(PortfolioPage, true)} />
                   <Route exact path="/leaderboards" component={LeaderboardsPage} />
                   <Route exact path="/forgot-password" component={ForgotPassPage} />
+                  <Route exact path="/watchlist" component={Auth(WatchlistPage, true)} />
                   <Route path="/crypto/:id" component={Auth(CryptoPage, null)} />
                   <Route render={() => <Redirect to="/" />} />
                 </Switch>

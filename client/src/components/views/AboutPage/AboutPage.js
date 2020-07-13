@@ -12,7 +12,7 @@ function AboutPage () {
         <>
         <div className="app padded">
             <img src={logo} alt='logo' style={{height: '140px', marginBottom: '16px'}} />
-            <h1 style={{ fontSize: '42px' }}>Why Stock Sim 3000?</h1>
+            <h1 className="page-heading">Why Stock Sim 3000?</h1>
             <p style={{
                 fontSize: '18px', whiteSpace: 'pre-wrap', textAlign: 'center',
                 marginBottom: '35px'
@@ -23,7 +23,7 @@ function AboutPage () {
                 <FaBitcoin style={{ fontSize: '4rem', color: '#1446a0ff' }}/>
                 <AiOutlineStock style={{ fontSize: '4rem', color: '#1446a0ff' }} />
             </p>
-            <h2 style={{ fontSize: '36px', marginTop: '20px' }}>
+            <h2 className="page-h2" style={{ marginTop: '20px' }}>
                 How to get started:
             </h2>
             <div style={{display: 'flex', flexDirection: 'column'}}>

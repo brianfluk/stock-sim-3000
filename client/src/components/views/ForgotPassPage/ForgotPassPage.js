@@ -11,7 +11,7 @@ function ForgotPassPage(props) {
   const [formErrorMessage, setFormErrorMessage] = useState('')
   return (
     <div className="app padded login-padding">
-      <h1 style={{ fontSize: '42px' }}>Reset Password</h1>
+      <h1 className="page-heading">Reset Password</h1>
       <p>We will send a recovery email to your email.</p>
       <Form
         name="normal_login"

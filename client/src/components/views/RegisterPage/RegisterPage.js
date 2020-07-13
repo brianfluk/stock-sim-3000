@@ -66,7 +66,7 @@ function RegisterPage(props) {
 
   return (
     <div className="app padded login-padding">
-      <h1 style={{ fontSize: '42px' }}>Sign up</h1>
+      <h1 className="page-heading">Sign up</h1>
       <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}
       style={{width: '100%', maxWidth: '500px'}}>
         <Form.Item
