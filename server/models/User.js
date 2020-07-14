@@ -21,7 +21,8 @@ const userSchema = mongoose.Schema({
         minlength: 5
     },
     startDate: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     role : {
         type:Number,

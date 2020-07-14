@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
 const { check, body, validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const { auth } = require("../middleware/auth");
 
@@ -35,7 +36,8 @@ router.post("/register", [
     }
 
     const user = new User(req.body);
-    user.startDate = new Date()
+    user.startDate = new Date();
+    user.uid = new mongoose.Types.ObjectId();
 
     user.save((err, doc) => {
         if (err) return res.json({ success: false, err });
