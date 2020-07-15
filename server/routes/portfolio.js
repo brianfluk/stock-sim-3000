@@ -40,7 +40,7 @@ router.post('/create', auth, async(req, res) => {
     portfolio.userId = req.user._id;
 
     portfolio.save((err, doc) => {
-        if (err) return res.json({ success: false, err })
+        if (err) return res.status(500).json({ success: false, err })
         return res.status(200).json({
             success: true,
             info: portfolio
@@ -59,19 +59,19 @@ router.get('/get-portfolio-by-user', auth, async (req, res) => {
     /** test */
     // let userId = mongoose.Types.ObjectId(req.query.id)
 
-    // Portfolio.findByUser(userId, (err, portfolio) => {
-    //     if (err) return res.status(400).send(err);
-    //     res.status(200).json(portfolio)
-    // })
-
-    let portfolio = await Portfolio.find({userId: userId})
+    let portfolios = await Portfolio.find({userId: userId})
         .select('name cash createDate coins stocks')
+        .lean()
         .exec()
-    if (portfolio.length <= 0) {
+    if (portfolios.length <= 0) {
         return res.status(400).send('portfolio not found')
     }
-    console.log(portfolio)
-    res.status(200).json(portfolio)
+    portfolios = portfolios.map(portfolio => {
+        return {...portfolio, coins: portfolio.coins.map(obj=> {
+            return {...obj, cashAmt: Number(obj.avg) * Number(obj.numHeld)}
+        })}
+    })
+    res.status(200).json(portfolios)
 
 })
 

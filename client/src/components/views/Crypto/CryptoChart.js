@@ -57,8 +57,6 @@ function CryptoChart(props) {
             <span style={{fontWeight:'bold'}}>Market cap:</span>  {format('($,')(hoverVals[1]['y'])} <br/>
             <span style={{fontWeight:'bold'}}>Total volumes:</span>  {format(',')(hoverVals[2]['y'])} <br/> */}
             <FlexibleXYPlot 
-                // height={500} 
-                // width={800}
                 margin={{left: 100}}
                 xType="time"
                 onMouseLeave={_onMouseLeave}

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { createPortfolio } from '../../../_actions/portfolio_actions'
 import { connect } from 'react-redux';
 import { Button, Form, Input, Select, Table } from 'antd';
+import { format } from 'd3-format';
 
 function PortfolioPage (props) {
     const dispatch = useDispatch();
@@ -92,10 +93,18 @@ function PortfolioPage (props) {
                     <Table 
                         style={{marginTop: '40px'}}
                         dataSource={portfolio[0]['coins']} 
+                        pagination={{position: ['none','bottomRight']}}
                         columns={[
                             {title: 'Coin ID', dataIndex: 'coinId', key: 'coinId'},
                             {title: 'Average', dataIndex: 'avg', key: 'avg'},
                             {title: 'Amount held', dataIndex: 'numHeld', key: 'numHeld'},
+                            {
+                                title: 'Cash invested', dataIndex: 'cashAmt', key: 'cashAmt',
+                                align: 'right',
+                                render: (text, record) => {
+                                    return format('($,.2f')(text)
+                                }
+                            },
                         ]}
                     />
                 </div>
