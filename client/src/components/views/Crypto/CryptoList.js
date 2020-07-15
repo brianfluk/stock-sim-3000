@@ -75,6 +75,16 @@ function CryptoList(props) {
         },
         render: text =>
           searchedColumn === dataIndex ? (
+            dataIndex === 'name' ? 
+            <Link to={`/crypto/${text}`}>
+              <Highlighter
+                highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+                searchWords={[searchText]}
+                autoEscape
+                textToHighlight={text.toString()}
+              />
+            </Link>
+            :
             <Highlighter
               highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
               searchWords={[searchText]}

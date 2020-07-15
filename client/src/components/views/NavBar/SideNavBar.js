@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 import { Layout, Menu } from 'antd';
-import { ToolFilled, FolderOutlined, SearchOutlined, StarOutlined  } from '@ant-design/icons';
+import { ToolFilled, FolderOutlined, SearchOutlined, StarOutlined , StockOutlined, CopyrightCircleOutlined } from '@ant-design/icons';
 
 const { Sider } = Layout;
 
@@ -48,14 +48,14 @@ function SideNavBar(props) {
             <Link to="/watchlist">Watchlist</Link>
           </Menu.Item>
         }
-        <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}>
-          <Menu.Item key="stocks">
-            <Link to="/browse-stocks">Stocks</Link>
+        {/* <Menu.SubMenu key="sub1"  title="Browse"icon={<SearchOutlined />}> */}
+          <Menu.Item key="stocks" icon={<StockOutlined />}>
+            <Link to="/browse-stocks" >Stocks</Link>
           </Menu.Item>
-          <Menu.Item key="crypto">
+          <Menu.Item key="crypto" icon={<CopyrightCircleOutlined />}>
             <Link to='/browse-crypto'>Cryptocurrencies</Link>
           </Menu.Item>
-        </Menu.SubMenu>
+        {/* </Menu.SubMenu> */}
         
         {(user.userData && user.userData.isAuth) &&
           <Menu.Item key="preferences" icon={<ToolFilled />}>
