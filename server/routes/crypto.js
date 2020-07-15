@@ -19,22 +19,28 @@ router.get("/chart/:symbol", async (req, res) => {
         vs_currency: 'cad'
     }
     const coinId = req.params.symbol;
-    let info = await CoinGeckoClient.coins.fetchMarketChart(coinId, params);
-    
-    // format for react-vis
-    info.data.prices = info.data.prices.map(item => {
-        return {'x': item[0], 'y': item[1]}
-    })
-    info.data.market_caps = info.data.market_caps.map(item => {
-        return {'x': item[0], 'y': item[1]}
-    })
-    info.data.total_volumes = info.data.total_volumes.map(item => {
-        return {'x': item[0], 'y': item[1]}
-    })
-    res.status(200).json({
-        'crypto': req.params.symbol,
-        'info': info
-    });
+    console.log('/chart/', coinId)
+    try {
+        let info = await CoinGeckoClient.coins.fetchMarketChart(coinId, params);
+        // format for react-vis
+        info.data.prices = info.data.prices.map(item => {
+            return {'x': item[0], 'y': item[1]}
+        })
+        info.data.market_caps = info.data.market_caps.map(item => {
+            return {'x': item[0], 'y': item[1]}
+        })
+        info.data.total_volumes = info.data.total_volumes.map(item => {
+            return {'x': item[0], 'y': item[1]}
+        })
+        res.status(200).json({
+            'crypto': req.params.symbol,
+            'info': info
+        });
+
+    } catch(err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
 });
 router.get("/price/:symbol", async (req, res) => {
     // TODO: need to set timeout

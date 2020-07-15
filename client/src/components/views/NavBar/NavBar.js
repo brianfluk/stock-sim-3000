@@ -63,7 +63,7 @@ function NavBar(props) {
         }
         {(user.userData && user.userData.isAuth) &&
           <Menu.Item key="user" style={{float: 'right'}}>
-            <Link to="/preferences">{user.userData.username}</Link>
+            <Link to="/portfolio">{user.userData.username}</Link>
           </Menu.Item>
         }
 

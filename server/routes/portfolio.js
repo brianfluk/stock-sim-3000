@@ -19,39 +19,60 @@ const { auth } = require("../middleware/auth");
 // create portfolio
 
 /* for prod: */
-// router.post('/create', auth, (req, res) => {
+router.post('/create', auth, async(req, res) => {
 /* for testing: */
-router.post('/create', (req, res) => {
+// router.post('/create', (req, res) => {
+    let userId = req.user._id
+    let query = await Portfolio.find({userId: userId})
+        .select('name cash createDate coins stocks')
+        .exec()
+    if (query.length > 0) {
+        return res.status(400).send('Portfolio limit reached (1)')
+    }
+
+    console.log('/create')
     let portfolio = new Portfolio(req.body)
     
     /* for testing: string --> ObjectId */
-    portfolio.userId = mongoose.Types.ObjectId(req.body.userId)
+    // portfolio.userId = mongoose.Types.ObjectId(req.body.userId)
 
     /* for prod: using auth middleware */
-    // portfolio.userId = req.user._id;
+    portfolio.userId = req.user._id;
 
     portfolio.save((err, doc) => {
         if (err) return res.json({ success: false, err })
         return res.status(200).json({
-            success: true
+            success: true,
+            info: portfolio
         })
     })
     
 })
 
 // get portfolio by user
-// router.get('/get-portfolio-by-user', auth, (req, res) => {
-router.get('/get-portfolio-by-user', (req, res) => {
-
+router.get('/get-portfolio-by-user', auth, async (req, res) => {
+// router.get('/get-portfolio-by-user', (req, res) => {
     /** prod */
-    // let userId = req.user._id
-    /** test */
-    let userId = mongoose.Types.ObjectId(req.query.id)
+    let userId = req.user._id
+    console.log('userId', userId)
 
-    Portfolio.findByUser(userId, (err, portfolio) => {
-        if (err) return res.status(400).send(err);
-        res.status(200).json(portfolio)
-    })
+    /** test */
+    // let userId = mongoose.Types.ObjectId(req.query.id)
+
+    // Portfolio.findByUser(userId, (err, portfolio) => {
+    //     if (err) return res.status(400).send(err);
+    //     res.status(200).json(portfolio)
+    // })
+
+    let portfolio = await Portfolio.find({userId: userId})
+        .select('name cash createDate coins stocks')
+        .exec()
+    if (portfolio.length <= 0) {
+        return res.status(400).send('portfolio not found')
+    }
+    console.log(portfolio)
+    res.status(200).json(portfolio)
+
 })
 
 //  buy coin on portfolio
@@ -76,10 +97,16 @@ router.post('/buy-crypto', async (req, res) => {
     try {
         let portfolio = await Portfolio.findById(portfolioId).lean().exec();
         if (portfolio == null || portfolio == []) {
-            return res.status(500).send('No portfolio by id')
+            return res.status(500).json({
+                success: false,
+                info: 'No portfolio by id'
+            })
         }
         if ( useCash > portfolio.cash) {
-            return res.status(500).send('Not enough cash')
+            return res.status(500).send({
+                success: false,
+                info: 'Insufficient cash'
+            })
         } 
         
         async function calculateNewValues(portfolio, coinPrice, coinId, useCash) {
@@ -114,9 +141,15 @@ router.post('/buy-crypto', async (req, res) => {
         let [newCash, newCoins] = await calculateNewValues(portfolio, coinPrice, coinId, useCash)
 
         let newPortfolio = await Portfolio.findByIdAndUpdate(portfolioId, {cash: newCash, coins: newCoins}, {new:true})
-        return res.status(200).send(newPortfolio)
+        return res.status(200).send({
+            success: true,
+            info:newPortfolio
+        })
     } catch(err) {
-        return res.status(500).json(err)
+        return res.status(500).json({
+            success: false,
+            info: err
+        })
     }
 
     // add transaction

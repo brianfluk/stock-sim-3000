@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const portfolioSchema = mongoose.Schema({
+    name: {
+        type: String,
+        default: 'portfolio'
+    },
     permission: {
         type: String,
         default: 'private'

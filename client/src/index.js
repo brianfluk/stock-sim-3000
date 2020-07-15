@@ -17,12 +17,19 @@ import ReduxThunk from 'redux-thunk';
 
 const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
+const actionSanitizer = (action) => (
+    action.type === 'GET_PORTFOLIO_BY_USER' && action.data ?
+    { ...action, payload: '<<LONG_BLOB>>' } : action
+);
+
 ReactDOM.render(
     <Provider
         store={createStoreWithMiddleware(
             Reducer,
             window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__()
+            window.__REDUX_DEVTOOLS_EXTENSION__({
+                actionSanitizer
+            })
         )}
     >
         <BrowserRouter>
