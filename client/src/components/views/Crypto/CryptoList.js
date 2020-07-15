@@ -65,7 +65,7 @@ function CryptoList(props) {
             </Space>
           </div>
         ),
-        filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+        filterIcon: filtered => <Tooltip title="Filter"><SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} /></Tooltip>,
         onFilter: (value, record) =>
           record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
         onFilterDropdownVisibleChange: visible => {

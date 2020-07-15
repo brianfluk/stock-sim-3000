@@ -8,7 +8,9 @@ function WatchlistPage (props) {
         <>
         <div className="app padded">
             <h1 className="page-heading">Watchlist</h1>
-            <h2>{props.userData && props.userData.email}</h2>
+            <h2>Sorry, watchlist feature not available yet. <br/>
+            
+            </h2>
         </div>
         </>
     )

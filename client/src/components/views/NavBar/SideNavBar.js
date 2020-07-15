@@ -57,11 +57,11 @@ function SideNavBar(props) {
           </Menu.Item>
         {/* </Menu.SubMenu> */}
         
-        {(user.userData && user.userData.isAuth) &&
+        {/* {(user.userData && user.userData.isAuth) &&
           <Menu.Item key="preferences" icon={<ToolFilled />}>
             <Link to="/preferences">Preferences</Link>
           </Menu.Item>
-        }
+        } */}
       </Menu>
     </Sider>
   )
