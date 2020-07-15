@@ -36,7 +36,8 @@ function CryptoPage (props) {
     const [warningMessage, setWarningMessage] = useState('')
     const [success, setSuccess] = useState(false)
     const [topWarning, setTopWarning] = useState('No price data available for this cryptocurrency.')
-    
+    const [noPortfolio, setNoPortfolio] = useState(false)
+
     //portfolio 
     const defaultPortfolios = [{
         name: '',
@@ -54,11 +55,16 @@ function CryptoPage (props) {
     function getPortfolios() { // and for now, always use first portfolio when buying
         const request = axios.get(`/api/portfolio/get-portfolio-by-user`) // userID thru cookie
         .then(response => {
-            console.log(response.data)
-            setPortfolios(response.data)
+            if (response.status==200) {
+                console.log(response.data)
+                setPortfolios(response.data)
+            }else {
+                console.log('response not 200',response)
+            }
         })
         .catch(err => {
             console.log(err)
+            setNoPortfolio(true)
         })
     }
 
@@ -160,10 +166,16 @@ function CryptoPage (props) {
             <h1 className="page-heading" style={{marginBottom: 0}}> {id}</h1>
             <p>Cryptocurrency</p>
             {topWarning && 
-            <Alert 
-                type="warning"
-                message={topWarning}
-            />
+                <Alert 
+                    type="warning"
+                    message={topWarning}
+                />
+            }
+            {noPortfolio && 
+                <Alert
+                    type="error"
+                    message="No portfolio for user found. Please go to /portfolio and create one!"
+                />
             }
             <p style={{fontSize: '24px'}}>Price: ${priceData[`${id}`] && priceData[`${id}`][vsCurrency]}</p>
             <p>Last updated at: {priceData[`${id}`] && moment(priceData[`${id}`]['last_updated_at']).format('HH:mm:ss on MMMM DD, YYYY')}</p>
