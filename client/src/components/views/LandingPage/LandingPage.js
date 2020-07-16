@@ -24,6 +24,7 @@ function LandingPage (props) {
                 fontStyle: 'italic'
                 // textShadow: '2px 5px 18px #000000'
             }}>Stock Sim 3000</h1>
+            <h2 style={{textAlign: 'center', marginBottom: '40px', fontWeight: 'normal', color: '#8c8c8c'}}>A one-stop destination for investing your simulation money.</h2>
             <div className="landing-button-container" style={{paddingBottom: '200px'}}> 
                 <Link to={(props.user && props.user.userData && props.user.userData.isAuth) ? "/leaderboards" : "/login"}><Button className="landing-button">Leaderboards</Button></Link>
                 <Link to={(props.user && props.user.userData && props.user.userData.isAuth) ? "/portfolio" : "/login"}><Button className="landing-button">Portfolio</Button></Link>
