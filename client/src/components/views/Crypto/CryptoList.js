@@ -30,7 +30,9 @@ function CryptoList(props) {
         const listExists = Boolean(props.cryptoList && (props.cryptoList.info.code==200) && props.cryptoList.info.data);
         if (listExists && !listHasBeenSet) { // wait until redux store has been updated
             setFilteredList(props.cryptoList.info.data)
-            getWatchlists()
+            if (props.user && props.user.userData && props.user.userData.isAuth) {
+              getWatchlists()
+            }
             setListHasBeenSet(true)
         }
     }, [props.cryptoList, listHasBeenSet])
@@ -64,42 +66,44 @@ function CryptoList(props) {
     }
 
     function addCryptoToWatchlist(wid, cid) {
-      if (!wid) { 
-        console.log('no watchlist provided')
-        return -1
-      }
-      axios.post('/api/watchlist/add-crypto', {
-        watchlistId:  wid,
-        coinId: cid
-      }).then(response => {
-        if (response.status == 200) {
-          getWatchlists()
-          return 1 
+      if (props.user && props.user.userData && props.user.userData.isAuth) {
+        if (!wid) { 
+          console.log('no watchlist provided')
+          return -1
         }
-      }).catch(err => {
-        console.log(err)
-        return -1
-      })
-
+        axios.post('/api/watchlist/add-crypto', {
+          watchlistId:  wid,
+          coinId: cid
+        }).then(response => {
+          if (response.status == 200) {
+            getWatchlists()
+            return 1 
+          }
+        }).catch(err => {
+          console.log(err)
+          return -1
+        })
+      }
     }
     function removeCryptoFromWatchlist(wid, cid) {
-      console.log(wid,cid)
-      if (!wid) { 
-        console.log('no watchlist provided')
-        return -1
-      }
-      axios.post('/api/watchlist/remove-crypto', {
-        watchlistId:  wid,
-        coinId: cid
-      }).then(response => {
-        if (response.status == 200) {
-          getWatchlists()
-          return 1 // to let button know to mark itself unavailable
+      if (props.user && props.user.userData && props.user.userData.isAuth) {
+        if (!wid) { 
+          console.log('no watchlist provided')
+          return -1
         }
-      }).catch(err => {
-        console.log(err)
-        return -1
-      })
+        axios.post('/api/watchlist/remove-crypto', {
+          watchlistId:  wid,
+          coinId: cid
+        }).then(response => {
+          if (response.status == 200) {
+            getWatchlists()
+            return 1 // to let button know to mark itself unavailable
+          }
+        }).catch(err => {
+          console.log(err)
+          return -1
+        })
+      }
     }
 
     const getColumnSearchProps = dataIndex => ({

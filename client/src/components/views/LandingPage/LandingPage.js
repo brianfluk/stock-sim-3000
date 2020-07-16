@@ -25,8 +25,8 @@ function LandingPage (props) {
                 // textShadow: '2px 5px 18px #000000'
             }}>Stock Sim 3000</h1>
             <div className="landing-button-container" style={{paddingBottom: '200px'}}> 
-                <Link to="/leaderboards"><Button className="landing-button">Leaderboards</Button></Link>
-                <Link to="/portfolio"><Button className="landing-button">Portfolio</Button></Link>
+                <Link to={(props.user && props.user.userData && props.user.userData.isAuth) ? "/leaderboards" : "/login"}><Button className="landing-button">Leaderboards</Button></Link>
+                <Link to={(props.user && props.user.userData && props.user.userData.isAuth) ? "/portfolio" : "/login"}><Button className="landing-button">Portfolio</Button></Link>
                 <Link to="/browse-crypto"><Button className="landing-button">Explore</Button></Link>
             </div>
         </div>
