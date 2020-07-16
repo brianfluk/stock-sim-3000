@@ -65,7 +65,8 @@ function CryptoList(props) {
       })
     }
 
-    function addCryptoToWatchlist(wid, cid) {
+    function _addCryptoToWatchlist(wid, cid) {
+      console.log('by')
       if (props.user && props.user.userData && props.user.userData.isAuth) {
         if (!wid) { 
           console.log('no watchlist provided')
@@ -85,7 +86,8 @@ function CryptoList(props) {
         })
       }
     }
-    function removeCryptoFromWatchlist(wid, cid) {
+    function _removeCryptoFromWatchlist(wid, cid) {
+      console.log('hi')
       if (props.user && props.user.userData && props.user.userData.isAuth) {
         if (!wid) { 
           console.log('no watchlist provided')
@@ -200,7 +202,7 @@ function CryptoList(props) {
                 
                   <Button 
                   type="primary" style={{ padding: '2px 10px'}}
-                  onClick={()=>addCryptoToWatchlist(watchlists[0]._id, record.id)}
+                  onClick={()=>_addCryptoToWatchlist(watchlists[0]._id, record.id)}
                   >
                       <PlusOutlined />
                   </Button>           
@@ -210,7 +212,7 @@ function CryptoList(props) {
                   <Tooltip title={`Remove ${record.symbol} from watchlist`} placement="right">
                     <Button 
                       type="danger" style={{ padding: '2px 10px'}}
-                      onClick={()=>removeCryptoFromWatchlist(watchlists[0]._id, record.id)}
+                      onClick={()=>_removeCryptoFromWatchlist(watchlists[0]._id, record.id)}
                     >
                       <MinusOutlined />
                     </Button>
@@ -238,7 +240,8 @@ CryptoList.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    cryptoList: state.crypto && state.crypto.cryptoList
+    cryptoList: state.crypto && state.crypto.cryptoList,
+    user: state.user,
 });
 /**  USAGE: <CryptoList cryptoList={props.cryptoList}/> 
  * where props.cryptoList is in format of:
