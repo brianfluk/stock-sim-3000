@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {
-    useParams
+    useParams, Link
 } from "react-router-dom";
 import {
     Button,
@@ -70,7 +70,9 @@ function CryptoPage (props) {
 
 
     useEffect(()=> {
-        getPortfolios()
+        if (props.user && props.user.userData && props.user.userData.isAuth){
+            getPortfolios()
+        }
         axios.get(`/api/crypto/price/${id}`)
             .then(response => {
                 console.log('response', response.data.info.data)
@@ -183,8 +185,16 @@ function CryptoPage (props) {
             <p>Last updated at: {priceData[`${id}`] && moment(priceData[`${id}`]['last_updated_at']).format('HH:mm:ss on MMMM DD, YYYY')}</p>
             
             {(!topWarning) && <div style={{display:'flex'}}>
+
+                {(props.user && props.user.userData && props.user.userData.isAuth) ? 
                 <Button type="primary" style={{marginRight: '30px'}} onClick={showBuyModal}>Buy</Button>
+                : <Link to="/login"><Button type="primary" style={{marginRight: '30px'}}>Buy</Button></Link>
+                }
+
+                {(props.user && props.user.userData && props.user.userData.isAuth) ?
                 <Button type="danger" onClick={showSellModal}>Sell</Button>
+                : <Link to="/login"><Button type="danger">Sell</Button></Link>
+                }
             </div>}
             <CryptoChart cryptoId={id}/>
             <Modal
@@ -352,7 +362,8 @@ function CryptoPage (props) {
 }
 
 const mapStateToProps = state => ({
-    cryptoList: state.crypto && state.crypto.cryptoList
+    cryptoList: state.crypto && state.crypto.cryptoList,
+    user: state.user
 });
 
 export default connect(mapStateToProps)(CryptoPage)
