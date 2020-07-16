@@ -23,6 +23,7 @@ router.get("/chart/:symbol", async (req, res) => {
     try {
         let info = await CoinGeckoClient.coins.fetchMarketChart(coinId, params);
         // format for react-vis
+        console.log('info',info)
         info.data.prices = info.data.prices.map(item => {
             return {'x': item[0], 'y': item[1]}
         })

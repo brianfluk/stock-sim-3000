@@ -177,7 +177,9 @@ function CryptoPage (props) {
                     message="No portfolio for user found. Please go to /portfolio and create one!"
                 />
             }
-            <p style={{fontSize: '24px'}}>Price: ${priceData[`${id}`] && priceData[`${id}`][vsCurrency]}</p>
+            {!topWarning &&
+                <p style={{fontSize: '24px'}}>Price: ${priceData[`${id}`] && priceData[`${id}`][vsCurrency]}</p>
+            }
             <p>Last updated at: {priceData[`${id}`] && moment(priceData[`${id}`]['last_updated_at']).format('HH:mm:ss on MMMM DD, YYYY')}</p>
             
             {(!topWarning) && <div style={{display:'flex'}}>
