@@ -88,7 +88,7 @@ function PortfolioPage (props) {
                     </div>
                     <div style={{display:'flex', justifyContent: 'space-between'}}>
                         <div style={{fontWeight: 'bold'}}> Cash </div>
-                        <div>{portfolio[0]['cash']}</div>
+                        <div>{format('($,.2f')(portfolio[0]['cash'])}</div>
                     </div>
                     <Table 
                         style={{marginTop: '40px'}}
