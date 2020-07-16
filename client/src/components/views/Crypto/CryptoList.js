@@ -145,10 +145,10 @@ function CryptoList(props) {
             setTimeout(function() {searchInput.select()});
           }
         },
-        render: text =>
+        render: (text, entry) =>
           searchedColumn === dataIndex ? (
             dataIndex === 'name' ? 
-            <Link to={`/crypto/${text}`}>
+            <Link to={`/crypto/${entry.id}`}>
               <Highlighter
                 highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
                 searchWords={[searchText]}
@@ -165,7 +165,7 @@ function CryptoList(props) {
             />
           ) : (
             dataIndex === 'name' ? 
-              <Link to={`/crypto/${text}`}>
+              <Link to={`/crypto/${entry.id}`}>
                 {text} 
               </Link>
             : ( text )
