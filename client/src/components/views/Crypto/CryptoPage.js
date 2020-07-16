@@ -328,7 +328,7 @@ function CryptoPage (props) {
                         </Form.Item>
                     </Form.Item>
                     <div style={{textAlign: "center", marginBottom: '24px'}}>
-                        {`You own ${portfolios[0].coins.filter(obj=>obj.coinId==coinId)[0].numHeld}`}
+                        {`You own ${(portfolios[0].coins.filter(obj=>obj.coinId==coinId).length >= 1) ? portfolios[0].coins.filter(obj=>obj.coinId==coinId)[0].numHeld : 0}`}
                     </div>
                     {warningMessage &&
                         <Alert 
