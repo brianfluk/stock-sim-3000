@@ -8,7 +8,7 @@ A stocks and cryptocurrency trading simulator platform using simulated money.
 - Buy and sell cryptocurrencies
 - View recent cryptocurrency market trends
 
-## Future features
+## In-progress features
 - Stocks
 - Foreign exchange
 - Many UI enhancements
